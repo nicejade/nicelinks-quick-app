@@ -1,0 +1,60 @@
+<template>
+  <div class="page-wrapper main-page">
+    <image class="icon" src="{{icon}}"></image>
+    <text class="title">{{ title }}</text>
+    <text class="desc">倾城之链，作为一个开放平台，旨在云集全球优秀网站，探索互联网中更广阔的世界；在这里，你可以轻松发现、学习、分享更多有用或有趣的事物。</text>
+    <input class="button" type="button" onclick="onGotoDetailClick" value="应用详情" />
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+  import app from '@system.app'
+  const appInfo = app.getInfo()
+
+  export default {
+    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+    private: {
+    },
+    protected: {
+      title: appInfo.name,
+      icon: appInfo.icon
+    },
+    onInit () {
+    },
+    onReady () {
+      // webview.loadUrl({
+      //   url: 'https://nicelinks.site'
+      // })
+    },
+    onShow () {
+    },
+    // (监听菜单按钮动作)当用户点击菜单按钮时触发
+    onMenuPress () {
+      // [Bug?]目测首页无法感知到“菜单”按钮的触发；
+      this.$app.$def.showMenu()
+    },
+    /* -------------------SelfCustomEvent------------------ */
+    onGotoDetailClick () {
+      router.push({
+        uri: '/pages/NiceDetail'
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import './../../assets/styles/style.less';
+  .main-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      margin-top: 90px;
+      width: 192px;
+      height: 192px;
+      border-radius: 96px;
+      border: 1px solid #8d8d8d;
+    }
+  }
+</style>

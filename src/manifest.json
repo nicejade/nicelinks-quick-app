@@ -1,14 +1,15 @@
 {
-  "package": "com.application.demo",
-  "name": "nicelinks-quick-app",
+  "package": "com.application.nicelinks",
+  "name": "倾城之链 | NICE LINKS",
   "versionName": "1.0.0",
   "versionCode": "1",
   "minPlatformVersion": "101",
-  "icon": "/Common/logo.png",
+  "icon": "/assets/images/logo.png",
   "features": [
     { "name": "system.prompt" },
     { "name": "system.router" },
-    { "name": "system.shortcut" }
+    { "name": "system.shortcut" },
+    { "name": "system.webview" }
   ],
   "permissions": [
     { "origin": "*" }
@@ -17,15 +18,15 @@
     "logLevel": "off"
   },
   "router": {
-    "entry": "Demo",
+    "entry": "pages/Main",
     "pages": {
-      "Demo": {
+      "pages/Main": {
         "component": "index"
       },
-      "DemoDetail": {
+      "pages/NiceDetail": {
         "component": "index"
       },
-      "About": {
+      "pages/About": {
         "component": "index"
       }
     }
@@ -35,14 +36,14 @@
     "titleBarTextColor": "#414141",
     "menu": true,
     "pages": {
-      "Demo": {
-        "titleBarText": "示例页",
-        "menu": false
+      "pages/Main": {
+        "titleBarText": "倾城之链",
+        "menu": true
       },
-      "DemoDetail": {
-        "titleBarText": "详情页"
+      "pages/NiceDetail": {
+        "titleBarText": "倾城详情"
       },
-      "About": {
+      "pages/About": {
         "menu": false
       }
     }

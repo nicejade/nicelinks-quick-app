@@ -2,6 +2,8 @@
  * 显示菜单
  */
 function showMenu () {
+  debugger
+  console.log('showMenu')
   const prompt = require('@system.prompt')
   const router = require('@system.router')
   const appInfo = require('@system.app').getInfo()
@@ -16,7 +18,7 @@ function showMenu () {
       case 1:
         // 关于
         router.push({
-          uri: '/About',
+          uri: '/pages/About',
           params: {
             name: appInfo.name,
             icon: appInfo.icon

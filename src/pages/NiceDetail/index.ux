@@ -1,0 +1,50 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="page-wrapper nice-detail">
+    <text class="title">探索更广阔的世界，为您</text>
+    <text class="desc">在这个信息化的世界，海量的讯息可能让您不知所措；担心错过她而努力汲取的同时，却可能错过更多；</text>
+    <text class="desc">「倾城之链」的存在，即是为您解决这种困扰；在这里，您可以浏览全球各类智慧的结晶；</text>
+    <text class="desc">丰富视野的同时，可以标注抑或分享您喜欢的站点，从而为更多挖掘讯息的人提供建设性参考。</text>
+    <text class="title">分享，为您所欢喜的网站</text>
+    <text class="desc">在当今这信息化时代，即便是再小的个体，也当有自己的品牌。然而，独立的才是自己的。</text>
+    <text class="desc">「倾城之链」作为一个开放平台，鼓励您创造属于您的个人品牌，烙印着自己的风格，替自己代言、发声。</text>
+    <text class="desc">如果您已经这样做了，您可以尽情分享在这里，让更多人知道，且从中受益。</text>
+    <text class="desc">当然，您也可以分享出您欢喜的其他有意思站点，让您的见识惠及更多人。</text>
+    <input class="button" type="button" onclick="onOpenWebsiteClick" value="访问 Web 网站" />
+  </div>
+</template>
+
+<script>
+  import webview from '@system.webview'
+  export default {
+    private: {
+      text: '欢迎打开详情页'
+    },
+    /**
+     * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
+     * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
+     */
+    onMenuPress() {
+      this.$app.$def.showMenu()
+    },
+    /* -------------------SelfCustomEvent------------------ */
+    onOpenWebsiteClick () {
+      webview.loadUrl({
+        url: 'https://nicelinks.site'
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import './../../assets/styles/style.less';
+  .nice-detail {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    .button {
+      margin-bottom: 30px;
+    }
+  }
+</style>

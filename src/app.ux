@@ -2,7 +2,7 @@
   /**
    * 应用级别的配置，供所有页面公用
    */
-  import util from './util'
+  import util from './helper/util'
 
   export default {
     showMenu: util.showMenu,

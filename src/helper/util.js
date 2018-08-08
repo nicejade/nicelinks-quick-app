@@ -2,37 +2,70 @@
  * 显示菜单
  */
 function showMenu () {
-  debugger
-  console.log('showMenu')
   const prompt = require('@system.prompt')
-  const router = require('@system.router')
-  const appInfo = require('@system.app').getInfo()
+  const itemFuncMapping = [
+    createShortcut, 
+    call3thPartyShare,
+    jump2AboutPage,
+    null
+  ]
   prompt.showContextMenu({
-    itemList: ['保存桌面', '关于', '取消'],
+    itemList: ['保存桌面', '分享', '关于', '取消'],
     success: function (ret) {
-      switch (ret.index) {
-      case 0:
-        // 保存桌面
-        createShortcut()
-        break
-      case 1:
-        // 关于
-        router.push({
-          uri: '/pages/About',
-          params: {
-            name: appInfo.name,
-            icon: appInfo.icon
-          }
-        })
-        break
-      case 2:
-        // 取消
-        break
-      default:
+      if (itemFuncMapping[ret.index]) {
+        itemFuncMapping[ret.index]()
+      } else {        
         prompt.showToast({
           message: 'error'
         })
+      } 
+    }
+  })
+}
+/*
+ * 跳转至 About 页面
+ */
+function jump2AboutPage () {
+  const router = require('@system.router')
+  const appInfo = require('@system.app').getInfo()
+  router.push({
+    uri: '/pages/About',
+    params: {
+      name: appInfo.name,
+      icon: appInfo.icon
+    }
+  })
+}
+
+/*
+ * 调起第三方分享
+ */
+function call3thPartyShare () {
+  const share = require('@service.share')
+  share.getAvailablePlatforms({
+    success: (data) => {
+      for (const i in data.platforms) {
+        console.log("platforms: " + data.platforms[i])
       }
+    },
+    fail: (data, code) => {
+      console.log("handling fail, code=" + code)
+    }
+  })
+
+  share.share({
+    shareType: 0,
+    title: '倾城之链',
+    summary: '倾城之链，作为一个开放平台，旨在云集全球优秀网站，探索互联网中更广阔的世界；在这里，你可以轻松发现、学习、分享更多有用或有趣的事物。',
+    imagePath: '/assets/images/logo.png',
+    targetUrl: 'http://nicelinks.site',
+    platforms: ["WEIBO", "WEIXIN", "WEIXIN_CIRCLE"],
+    success: function (data) {
+      console.log('handling success')
+    },
+    fail: function (data, code) {
+      console.log(`handling fail, code = ${code}`)
+      console.log(data)
     }
   })
 }

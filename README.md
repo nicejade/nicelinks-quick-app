@@ -12,6 +12,23 @@
 
 此仓库的建立，也是应潮流趋势，为个人作品[倾城之链 | NICE LINKS](https://nicelinks.site/)，所构建的`快应用`；以期提供更为便捷的访问方式，来[倾城之链 | NICE LINKS](https://nicelinks.site/)；同时借此以探索新型应用设计；此外，也是在探索如何构建优质`快应用`，希望可以在此事儿上提供些参考(附：[快应用开发文档](https://doc.quickapp.cn/))。
 
+## 组织结构
+
+```
+├── sign                # 存储 rpk 包签名模块;
+│   ├── debug           # 调试环境证书/私钥文件
+│   └── release         # 正式环境证书/私钥文件
+└── src
+│   ├── assets          # 公用的资源(Images/Styles/字体...)
+│   │   ├──images       # 存储 png/jpg/svg 等公共图片资源
+│   │   └──styles       # 存放 less/css/sass 等公共样式资源
+│   ├── helper          # 项目自定义辅助各类工具
+│   ├── pages           # 存放项目页面级代码
+│   ├── app.ux          # 应用程序代码的人口文件
+│   └── manifest.json   # 配置应用基本信息
+└── package.json        # 定义项目需要的各种模块及配置信息
+```
+
 ## 相关链接
 
 - [**倾城之链**](https://nicelinks.site?from=github)

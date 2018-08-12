@@ -39,12 +39,7 @@
 <style lang="less">
   @import './../../assets/styles/style.less';
   .nice-detail {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 15px;
-    .button {
-      margin-bottom: 30px;
-    }
+    .flex-box-mixins(column, center, center);
+    margin: 0 2 * @size-factor;
   }
 </style>

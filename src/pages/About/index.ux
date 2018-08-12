@@ -1,5 +1,5 @@
 <template>
-  <div class="about-page">
+  <div class="page-wrapper about-page">
     <!-- 应用图标 -->
     <image class="app-icon" src="{{icon}}"></image>
 
@@ -74,67 +74,65 @@
   align-items: center;
   .app-icon {
     margin-top: 90px;
-    width: 134px;
-    height: 134px;
-    border-radius: 10px;
-    border: 1px solid #8d8d8d;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    border: 1px solid @grey;
   }
   /* 应用名 */
   .app-name {
     margin-top: 20px;
-    font-size: 36px;
-    color: #000000;
+    font-size: 5 * @size-factor;
+    color: @black;
   }
 
   /* 应用标签 */
   .app-tags {
-    margin-top: 22px;
+    margin-top: 4 * @size-factor;
     align-items: center;
     .tag {
       padding-left: 20px;
       padding-right: 20px;
-      font-size: 28px;
-      color: #2a9700;
+      font-size: 4.5 * @size-factor;
+      color: @jade;
     }
     .gap {
-      font-size: 22px;
-      color: #b2b2b2;
+      font-size: 4.5 * @size-factor;
+      color: @grey;
     }
   }
   .app-desc {
     width: 650px;
-    margin-top: 40px;
+    margin-top: 5 * @size-factor;
     line-height: 35px;
-    font-size: 25px;
-    color: #8d8d8d;
+    font-size: 4 * @size-factor;
+    color: @grey;
   }
   .app-detail {
     width: 650px;
     height: 90px;
+    font-size: 4 * @size-factor;
     border-bottom-width: 1px;
-    border-bottom-color: #f0f0f0;
+    border-bottom-color: @border-grey;
+    .detail-title {
+      width: 20 * @size-factor;
+      color: @black;
+    }
+    .detail-content {
+      color: @grey;
+    }
   }
   .detail-first {
-    margin-top: 65px;
+    margin-top: 5 * @size-factor;
     border-top-width: 1px;
-    border-top-color: #f0f0f0;
-  }
-  .detail-title {
-    width: 160px;
-    padding-left: 10px;
-    font-size: 25px;
-    color: #000000;
-  }
-  .detail-content {
-    font-size: 25px;
-    color: #8d8d8d;
+    border-top-color: @border-grey;
   }
   .footer {
     width: 750px;
     position: fixed;
-    bottom: 55px;
-    font-size: 25px;
-    color: #8d8d8d;
+    bottom: 7 * @size-factor;
+    font-size: 4.5 * @size-factor;
+    color: @grey;
     text-align: center;
   }
 }

@@ -3,11 +3,24 @@
     <image class="icon" src="{{icon}}"></image>
     <text class="title">{{ title }}</text>
     <text class="desc">倾城之链，作为一个开放平台，旨在云集全球优秀网站，探索互联网中更广阔的世界；在这里，你可以轻松发现、学习、分享更多有用或有趣的事物。</text>
-    <input class="button" type="button" onclick="onGotoDetailClick" value="应用详情" />
+    <input class="button" type="button" onclick="onOpenWebsiteClick" value="探索美好" />
+    <div class="nice-detail">
+      <text class="title">探索更广阔的世界，为您</text>
+      <text class="desc">在这个信息化的世界，海量的讯息可能让您不知所措；担心错过她而努力汲取的同时，却可能错过更多；</text>
+      <text class="desc">「倾城之链」的存在，即是为您解决这种困扰；在这里，您可以浏览全球各类智慧的结晶；</text>
+      <text class="desc">丰富视野的同时，可以标注抑或分享您喜欢的站点，从而为更多挖掘讯息的人提供建设性参考。</text>
+      <text class="title">分享，为您所欢喜的网站</text>
+      <text class="desc">在当今这信息化时代，即便是再小的个体，也当有自己的品牌。然而，独立的才是自己的。</text>
+      <text class="desc">「倾城之链」作为一个开放平台，鼓励您创造属于您的个人品牌，烙印着自己的风格，替自己代言、发声。</text>
+      <text class="desc">如果您已经这样做了，您可以尽情分享在这里，让更多人知道，且从中受益。</text>
+      <text class="desc">当然，您也可以分享出您欢喜的其他有意思站点，让您的见识惠及更多人。</text>
+      <input class="button" type="button" onclick="onGotoDetailClick" value="查看详情" />
+    </div>
   </div>
 </template>
 
 <script>
+  import webview from '@system.webview'
   import router from '@system.router'
   import app from '@system.app'
   const appInfo = app.getInfo()
@@ -35,6 +48,11 @@
       this.$app.$def.showMenu()
     },
     /* -------------------SelfCustomEvent------------------ */
+    onOpenWebsiteClick () {
+      webview.loadUrl({
+        url: 'https://nicelinks.site'
+      })
+    },
     onGotoDetailClick () {
       router.push({
         uri: '/pages/NiceDetail'
@@ -46,15 +64,16 @@
 <style lang="less">
   @import './../../assets/styles/style.less';
   .main-page {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    .flex-box-mixins(column, center, center);
     .icon {
-      margin-top: 90px;
-      width: 192px;
-      height: 192px;
-      border-radius: 96px;
-      border: 1px solid #8d8d8d;
+      margin-top: 5 * @size-factor;
+      width: 24 * @size-factor;
+      height: 24 * @size-factor;
+      border-radius: 12 * @size-factor;
+    }
+    .nice-detail {
+      .flex-box-mixins(column, center, center);
+      margin: 0 2 * @size-factor;
     }
   }
 </style>

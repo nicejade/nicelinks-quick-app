@@ -1,23 +1,26 @@
 .page-wrapper {
-  padding: 0 40px;
+  padding: 0 5 * @size-factor;
+  font-size: 5 * @size-factor;
 }
 .title {
   color: #212121;
-  font-size: 48px;
+  font-size: 5 * @size-factor;
   font-weight: bold;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 5 * @size-factor;
 }
 .desc {
   color: #454545;
-  font-size: 36px;
-  margin-top: 40px;
+  margin-top: 4 * @size-factor;
+  font-size: 4.5 * @size-factor;
 }
 .button {
-  border: 1px solid #20a0ff;
+  border: 1px solid @brand;
   background-color: #ffffff;
-  padding: 15px 30px;
-  color: #20a0ff;
+  padding: 2 * @size-factor 4 * @size-factor;
+  color: @brand;
+  font-size: 4.5 * @size-factor;
   border-radius: 40px;
-  margin-top: 40px;
+  margin-top: 5 * @size-factor;
+  margin-bottom: 5 * @size-factor;
 }

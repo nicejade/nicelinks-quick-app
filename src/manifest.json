@@ -16,7 +16,8 @@
     { "origin": "*" }
   ],
   "config": {
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "designWidth": 800
   },
   "router": {
     "entry": "pages/Main",
@@ -34,7 +35,7 @@
   },
   "display": {
     "titleBarBackgroundColor": "#f2f2f2",
-    "titleBarTextColor": "#414141",
+    "titleBarTextColor": "#333333",
     "menu": true,
     "pages": {
       "pages/Main": {

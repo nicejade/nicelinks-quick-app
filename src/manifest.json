@@ -10,7 +10,8 @@
     { "name": "system.router" },
     { "name": "system.shortcut" },
     { "name": "system.webview" },
-    { "name": "service.share" }
+    { "name": "service.share" },
+    { "name": "@system.fetch" }
   ],
   "permissions": [
     { "origin": "*" }

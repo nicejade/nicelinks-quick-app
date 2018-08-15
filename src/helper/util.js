@@ -101,7 +101,27 @@ function createShortcut () {
   })
 }
 
+function setCurrentDate (date) {
+  // set current Date
+}
+
+function serverUrl (apiName) {
+  return `https://nicelinks.site/api/${apiName}`
+}
+
+function queryString (url, query) {
+  let str = []
+  for (let key in query) {
+    str.push(key + '=' + query[key])
+  }
+  let paramStr = str.join('&')
+  return paramStr ? `${url}?${paramStr}` : url
+}
+
 export default {
   showMenu,
-  createShortcut
+  createShortcut,
+  serverUrl,
+  queryString,
+  setCurrentDate
 }

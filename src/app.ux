@@ -2,10 +2,11 @@
   /**
    * 应用级别的配置，供所有页面公用
    */
-  import util from './helper/util'
+  import { $util, $apis } from './helper'
 
   export default {
-    showMenu: util.showMenu,
-    createShortcut: util.createShortcut
+    $apis: $apis,
+    showMenu: $util.showMenu,
+    createShortcut: $util.createShortcut
   }
 </script>

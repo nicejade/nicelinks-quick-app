@@ -23,7 +23,10 @@
 │   │   ├──images       # 存储 png/jpg/svg 等公共图片资源
 │   │   └──styles       # 存放 less/css/sass 等公共样式资源
 │   ├── helper          # 项目自定义辅助各类工具
-│   ├── pages           # 存放项目页面级代码
+│   │   ├──apis         # 存储与后台请求接口相关(已封装好)
+│   │   ├──ajax.js      # 对系统提供的 fetch api 进行链式封装
+│   │   └──util.js      # 存放项目所需公共工具类方法
+│   ├── pages           # 统一存放项目页面级代码
 │   ├── app.ux          # 应用程序代码的人口文件
 │   └── manifest.json   # 配置应用基本信息
 └── package.json        # 定义项目需要的各种模块及配置信息

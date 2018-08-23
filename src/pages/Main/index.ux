@@ -38,32 +38,42 @@
     private: {
       totalLinksCount: 0
     },
+
     protected: {
       title: appInfo.name,
       icon: appInfo.icon
     },
+
     onInit () {
     },
+
     onReady () {
     },
+
     onShow () {
       const params = { active: true }
-      this.$app._def.$apis.links.getAllLinksCount(params).then(result => {
+      /**
+       * @desc: 调用 API：global.$apis || this.$app._def.$apis (前者更简洁);
+       */
+      global.$apis.links.getAllLinksCount(params).then(result => {
         this.totalLinksCount = result
       }).catch((error) => {
         console.log(error)
       })
     },
+
     // (监听菜单按钮动作)当用户点击菜单按钮时触发
     onMenuPress () {
       this.$app.$def.showMenu()
     },
+
     /* -------------------SelfCustomEvent------------------ */
     onOpenWebsiteClick () {
       webview.loadUrl({
         url: 'https://nicelinks.site'
       })
     },
+
     onGotoDetailClick () {
       router.push({
         uri: '/pages/NiceDetail'

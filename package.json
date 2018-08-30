@@ -6,6 +6,7 @@
   },
   "description": "",
   "scripts": {
+    "start": "node ./command/server.js",
     "server": "hap server",
     "postinstall": "hap postinstall",
     "debug": "hap debug",
@@ -14,11 +15,14 @@
     "watch": "hap watch"
   },
   "devDependencies": {
+    "address": "^1.0.3",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-jsx": "^6.18.0",
+    "chalk": "^2.4.1",
+    "child_process": "^1.0.2",
     "cross-env": "^5.1.4",
     "css-what": "^2.1.0",
     "hap-toolkit": "0.0.34",
@@ -29,6 +33,7 @@
     "koa-static": "^4.0.1",
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
+    "portfinder": "^1.0.17",
     "socket.io": "^2.1.0",
     "webpack": "^3.11.0"
   }

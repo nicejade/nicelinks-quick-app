@@ -1,5 +1,5 @@
 /**
- * 显示菜单
+ * @desc 显示菜单
  */
 function showMenu () {
   const prompt = require('@system.prompt')
@@ -22,8 +22,9 @@ function showMenu () {
     }
   })
 }
-/*
- * 跳转至 About 页面
+
+/**
+ * @desc 跳转至 About 页面
  */
 function jump2AboutPage () {
   const router = require('@system.router')
@@ -37,21 +38,11 @@ function jump2AboutPage () {
   })
 }
 
-/*
- * 调起第三方分享
+/**
+ * @desc 调起第三方分享
  */
 function call3thPartyShare () {
   const share = require('@service.share')
-  share.getAvailablePlatforms({
-    success: (data) => {
-      for (const i in data.platforms) {
-        console.log("platforms: " + data.platforms[i])
-      }
-    },
-    fail: (data, code) => {
-      console.log("handling fail, code=" + code)
-    }
-  })
 
   share.share({
     shareType: 0,
@@ -71,7 +62,7 @@ function call3thPartyShare () {
 }
 
 /**
- * 创建桌面图标
+ * @desc 创建桌面图标
  * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
  */
 function createShortcut () {

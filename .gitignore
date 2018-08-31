@@ -3,6 +3,8 @@ node_modules
 /dist
 /build
 
+/sign/release
+
 # local env files
 .env.local
 .env.*.local

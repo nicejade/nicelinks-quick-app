@@ -75,7 +75,6 @@ exports.startBrowserProcess = (url) => {
   const shouldTryOpenChromeWithAppleScript =
     process.platform === 'darwin' &&
     (typeof browser !== 'string' || browser === OSX_CHROME)
-  console.log(shouldTryOpenChromeWithAppleScript)
 
   if (shouldTryOpenChromeWithAppleScript) {
     try {

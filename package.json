@@ -34,6 +34,7 @@
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
     "portfinder": "^1.0.17",
+    "shelljs": "^0.8.2",
     "socket.io": "^2.1.0",
     "webpack": "^3.11.0"
   }

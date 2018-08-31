@@ -1,39 +1,31 @@
-const childProcess = require('child_process')
 const portfinder = require('portfinder')
 const chalk = require('chalk')
 const utils = require('./utils.js')
-const path = require('path')
+const shelljs = require('shelljs')
 
-portfinder.basePort = +process.env.PORT || 8080
 const autoOpenBrowser = true
 
 const startServer = () => {
+  portfinder.basePort = +process.env.PORT || 8080
   portfinder.getPortPromise().then(port => {
-    const commandStr = `npm run server -- --port ${port}`
-    const output = childProcess.execSync(commandStr, {
-      cwd: process.cwd(),
-      timeout: 3000,
-      encoding: 'utf8'
-    })
-    console.log(output)
+    shelljs.exec(`hap server --port ${port}`, { async: true })
 
     const urls = utils.prepareUrls('http', '0.0.0.0', port)
-    
-    console.log()
-    console.log([
-      `  App running at:`,
-      `  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`,
-      `  - Network: ${chalk.cyan(urls.lanUrlForTerminal)}`
-    ].join('\n'))
-    console.log()
-  
-    // when env is testing, don't need open it
-    if (autoOpenBrowser) {
-      utils.startBrowserProcess(urls.localUrlForBrowser)
-    }
+    printInfoAtTerminal(urls)
+    autoOpenBrowser && utils.startBrowserProcess(urls.localUrlForTerminal)
   }).catch(err => {
     console.log(err)
   })
+}
+
+const printInfoAtTerminal = (urls) => {
+  console.log()
+  console.log([
+    `App running at:`,
+    `   ${chalk.green('✔')} Local:  ${chalk.cyan(urls.localUrlForTerminal)}`,
+    `   ${chalk.green('✔')} Online: ${chalk.cyan(urls.lanUrlForTerminal)}`
+  ].join('\n'))
+  console.log()
 }
 
 startServer()

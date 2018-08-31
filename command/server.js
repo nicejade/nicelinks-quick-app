@@ -7,18 +7,19 @@ const autoOpenBrowser = true
 
 const startServer = () => {
   portfinder.basePort = +process.env.PORT || 8080
+
   portfinder.getPortPromise().then(port => {
+    const urls = utils.prepareUrls('http', '0.0.0.0', port)
     shelljs.exec(`hap server --port ${port}`, { async: true })
 
-    const urls = utils.prepareUrls('http', '0.0.0.0', port)
-    printInfoAtTerminal(urls)
-    autoOpenBrowser && utils.startBrowserProcess(urls.localUrlForTerminal)
-  }).catch(err => {
-    console.log(err)
+    printInfoAtTheTerminal(urls)
+    autoOpenBrowser && utils.startBrowserProcess(urls.lanUrlForTerminal)
+  }).catch(error => {
+    console.log(`${chalk.red('✘')} Opps, Something Error：\n`, error)
   })
 }
 
-const printInfoAtTerminal = (urls) => {
+const printInfoAtTheTerminal = (urls) => {
   console.log()
   console.log([
     `App running at:`,

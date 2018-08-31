@@ -65,6 +65,8 @@ exports.prepareUrls = function (protocol, host, port) {
 }
 
 exports.startBrowserProcess = (url) => {
+  const opn = require('opn')
+  const chalk = require('chalk')
   const OSX_CHROME = 'google chrome'
   const browser = process.env.BROWSER
 
@@ -89,6 +91,9 @@ exports.startBrowserProcess = (url) => {
       return true
     } catch (err) {
       // Ignore errors.
+      console.log(`${chalk.red('✘')} Opps, Something Error：\n`, err)
+      const options = { app: undefined }
+      opn(url, options).catch(() => {})
     }
   }
 
@@ -103,8 +108,7 @@ exports.startBrowserProcess = (url) => {
   // Fallback to opn
   // (It will always open new tab)
   try {
-    var options = { app: browser }
-    const opn = require('opn')
+    const options = { app: browser }
     opn(url, options).catch(() => {}) // Prevent `unhandledRejection` error.
     return true
   } catch (err) {

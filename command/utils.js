@@ -56,9 +56,12 @@ exports.prepareUrls = function (protocol, host, port) {
   }
   const localUrlForTerminal = prettyPrintUrl(prettyHost)
   const localUrlForBrowser = formatUrl(prettyHost)
+  const lanUrlForBrowser = formatUrl(lanUrlForConfig)
+
   return {
     lanUrlForConfig,
     lanUrlForTerminal,
+    lanUrlForBrowser,
     localUrlForTerminal,
     localUrlForBrowser
   }
@@ -90,10 +93,7 @@ exports.startBrowserProcess = (url) => {
       })
       return true
     } catch (err) {
-      // Ignore errors.
       console.log(`${chalk.red('✘')} Opps, Something Error：\n`, err)
-      const options = { app: undefined }
-      opn(url, options).catch(() => {})
     }
   }
 

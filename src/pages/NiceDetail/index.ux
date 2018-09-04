@@ -10,6 +10,10 @@
     <text class="desc">「倾城之链」作为一个开放平台，鼓励您创造属于您的个人品牌，烙印着自己的风格，替自己代言、发声。</text>
     <text class="desc">如果您已经这样做了，您可以尽情分享在这里，让更多人知道，且从中受益。</text>
     <text class="desc">当然，您也可以分享出您欢喜的其他有意思站点，让您的见识惠及更多人。</text>
+    <text class="title">箴言锦语 佳句共赏</text>
+    <text class="desc">情不知所起，一往而深。那些与旁人说来脸红的绰号暱称、轻灵的诗意，和深刻的激动，像筛子一般，将文字抖出松弛微醺的质感，历久弥新。</text>
+    <text class="desc">任时世流转，风华变迁，在这美妙的质感前，循迹而去，仍能感观：那些在文字中留鲜的岁月，一段段永不衰老的情缘；隔著时空漫漫，跨越千山万水，蹁跹而来，带给我们不曾褪色的悸动。</text>
+    <text class="desc">箴言锦语，云集世间曼妙句子；或情感、或唯美、或修身、或励志、或哲学、或娱乐，拳拳真情，精心择选，总有一荡漾你心的那一言。</text>
     <input class="button" type="button" onclick="onOpenWebsiteClick" value="访问 Web 网站" />
   </div>
 </template>
@@ -40,6 +44,7 @@
   @import './../../assets/styles/style.less';
   .nice-detail {
     .flex-box-mixins(column, center, center);
-    margin: 0 2 * @size-factor;
+    padding: 0 5 * @size-factor;
+    margin: 0;
   }
 </style>

@@ -32,6 +32,20 @@
 └── package.json        # 定义项目需要的各种模块及配置信息
 ```
 
+```bash
+git clone https://github.com/nicejade/nicelinks-quick-app.git
+cd nicelinks-quick-app && yarn
+yarn start
+
+# Or run the following command
+yarn server && yarn watch
+
+# Or at one terminal
+yarn server
+# At the other terminal
+yarn watch
+```
+
 有必要谈及的是，此项目秉承在[高效开发 Web 单页应用解决方案](https://nice.lovejade.cn/zh/article/vue-webpack-boilerplate-template.html)中所传递的理念：为**高效开发**而设计；相比于内置 Demo，她具有以下诸多优点：
 
 - **对项目结构进行优化**；如上组织结构所示，将各资源模块，更专业的分门别类，使之可以便捷的去编写、维护、查找，同时也是基于前端开发既定共识去设计，更容易为初接触者所理解 & 上手；

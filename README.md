@@ -35,14 +35,14 @@
 ```bash
 git clone https://github.com/nicejade/nicelinks-quick-app.git
 cd nicelinks-quick-app && yarn
-yarn start
+yarn start # 推荐 ✅
 
-# Or run the following command
+# 或者运行以下命令
 yarn server && yarn watch
 
-# Or at one terminal
+# 或者在终端一 Tab 下运行：
 yarn server
-# At the other terminal
+# 在终端另一 Tab 下运行：
 yarn watch
 ```
 

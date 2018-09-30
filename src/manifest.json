@@ -10,13 +10,17 @@
     { "name": "system.router" },
     { "name": "system.shortcut" },
     { "name": "system.webview" },
-    { "name": "service.share" },
+    {
+      "name": "service.share",
+      "params": {
+        "appSign": "",
+        "wxKey": ""
+      }
+    },
     { "name": "system.device" },
     { "name": "system.fetch" }
   ],
-  "permissions": [
-    { "origin": "*" }
-  ],
+  "permissions": [{ "origin": "*" }],
   "config": {
     "logLevel": "debug",
     "designWidth": 800

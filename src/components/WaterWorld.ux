@@ -1,5 +1,5 @@
 <template>
-  <div class="nice-particle">
+  <div class="nice-particle" show="{{isShowFlag}}">
     <canvas id="waterCanvas" class="water-canvas"></canvas>
   </div>
 </template>
@@ -27,20 +27,28 @@
       mContext: null,
       mWidth: 800,
       mHeight: 300,
-      randomIndex: 0
+      randomIndex: 0,
+      drawTimerId: null,
+      isShowFlag: false
     },
 
     onInit () {
-      this.randomIndex = $util.getRandomInt(0, 10)
     },
 
     onReady () {
       setTimeout(() => {
+        this.isShowFlag = true
         this.startNiceDraw()
       }, 10)
     },
 
     onShow () {
+      this.drawParticleCanvas()
+    },
+
+    onHide () {
+      clearInterval(this.drawTimerId)
+      this.drawTimerId = null
     },
 
     startNiceDraw () {
@@ -48,11 +56,12 @@
       this.mContext =this.mCanvas.getContext('2d');
       this.mCanvas.width = 800;
       this.mCanvas.height = 400;
-      setInterval(() => {
-        this.drawParticleCanvas()
-      }, 60)
-    },
+      this.randomIndex = $util.getRandomInt(0, 10)
 
+      this.drawTimerId = setInterval(() => {
+        this.drawParticleCanvas()
+      }, 30)
+    },
     drawParticleCanvas() {
       this.mContext.globalCompositeOperation = "source-over";
       this.mContext.fillStyle = "rgb(0, 0, 0)";
@@ -118,9 +127,17 @@
       }
       // requestAnimationFrame(this.drawParticleCanvas)
     },
-    nami(r, s) {
+    nami (r, s) {
       var a = Math.sin(r * 2 - tim / 13 + s * 13) / 20 + Math.sin(r * 5 - tim / 17 + s * 13) / 20 + Math.sin(r * 7 - tim / 19 + s * 13) / 40;
       return a * bai;
+    },
+    onBackPress () {
+      clearInterval(this.drawTimerId)
+      this.drawTimerId = null
+    },
+    onDestroy () {
+      clearInterval(this.drawTimerId)
+      this.drawTimerId = null
     }
   }
 </script>

@@ -21,9 +21,7 @@
         "appSign": "",
         "wxKey": ""
       }
-    },
-    { "name": "system.device" },
-    { "name": "system.fetch" }
+    }
   ],
   "permissions": [{ "origin": "*" }],
   "config": {

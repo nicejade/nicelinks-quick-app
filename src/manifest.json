@@ -6,6 +6,11 @@
   "minPlatformVersion": "1020",
   "icon": "/assets/images/logo.png",
   "features": [
+    { "name": "system.fetch" },
+    { "name": "system.storage" },
+    { "name": "system.device" },
+    { "name": "system.network" },
+    { "name": "service.account" },
     { "name": "system.prompt" },
     { "name": "system.router" },
     { "name": "system.shortcut" },

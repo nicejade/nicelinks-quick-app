@@ -14,7 +14,7 @@
     "debug": "hap debug",
     "release": "hap release",
     "precommit-msg": "echo '🚧 Pre-commit checks...' && exit 0",
-    "prettier": "prettier --write 'src/**/*.ux'",
+    "prettier": "prettier --write 'src/**/*.js'",
     "prettier-watch": "onchange '**/*.md' -- prettier --write {{changed}}"
   },
   "devDependencies": {

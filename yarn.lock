@@ -129,6 +129,10 @@ acorn@^5.0.0, acorn@^5.5.0:
   version "5.7.1"
   resolved "http://registry.npm.taobao.org/acorn/download/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
 
+adb-driver@0.0.6:
+  version "0.0.6"
+  resolved "http://registry.npm.taobao.org/adb-driver/download/adb-driver-0.0.6.tgz#3420b40f9e6dbfdfdf1ac7818f89373f5db926f9"
+
 address@^1.0.3:
   version "1.0.3"
   resolved "http://registry.npm.taobao.org/address/download/address-1.0.3.tgz#b5f50631f8d6cec8bd20c963963afb55e06cbce9"
@@ -2459,11 +2463,12 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "http://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-hap-toolkit@0.0.35-beta.2:
-  version "0.0.35-beta.2"
-  resolved "http://registry.npm.taobao.org/hap-toolkit/download/hap-toolkit-0.0.35-beta.2.tgz#4e8136c0e04c9138431425d9cfd6713cbc0fb9e5"
+hap-toolkit@0.0.37:
+  version "0.0.37"
+  resolved "http://registry.npm.taobao.org/hap-toolkit/download/hap-toolkit-0.0.37.tgz#4d67154629a74faf4b8d4661e35e3dc93844b114"
   dependencies:
     aaptjs "^1.3.0"
+    adb-driver "0.0.6"
     babel-plugin-transform-runtime "^6.9.0"
     babel-polyfill "^6.26.0"
     babel-preset-env "^1.6.0"

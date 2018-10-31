@@ -2,7 +2,7 @@
   "name": "nicelinks-quick-app",
   "version": "1.1.0",
   "subversion": {
-    "toolkit": "0.0.35-beta.2"
+    "toolkit": "0.0.37"
   },
   "description": "",
   "scripts": {
@@ -28,7 +28,7 @@
     "concurrently": "^4.0.1",
     "cross-env": "^5.1.4",
     "css-what": "^2.1.0",
-    "hap-toolkit": "0.0.35-beta.2",
+    "hap-toolkit": "0.0.37",
     "husky": "^1.0.0",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",

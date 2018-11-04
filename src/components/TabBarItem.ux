@@ -1,0 +1,38 @@
+<template>
+  <div class="tab-bar-area">
+    <image class="tab-icon" src="{{path}}"></image>
+    <text class="{{index === '1' ? 'active' : 'tab-title'}}">{{ title }}</text>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: [
+      'index',
+      'title',
+      'path',
+    ],
+    onInit () {
+    }
+  }
+</script>
+
+<style lang="less">
+  @import './../assets/styles/style.less';
+  .tab-bar-area {
+    .flex-box-mixins(row, center, center);
+    height: 100%;
+    .tab-icon {
+      width: 5 * @size-factor;
+      height: 5 * @size-factor;
+      margin-right: 1.5 * @size-factor;
+      fill: green;
+    }
+    .tab-title {
+      color: @silver-grey;
+    }
+    .active {
+      color: @black;
+    }
+  }
+</style>

@@ -1,0 +1,133 @@
+<template>
+  <list-item type="List">
+    <div class="module" @click="onModuleClick">
+      <div class="meta">
+        <a class="item classify" href="{{ getClassifyPath(pdata.createdBy) }}"
+          target="_blank" rel="noopener">
+          {{ fillThemeName(pdata.classify, pdata.theme) }}
+        </a>
+        <text class="separator">·</text>
+        <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
+          target="_blank" rel="noopener">
+          {{ pdata.createdBy || '' }}
+        </a>
+        <text class="separator">·</text>
+        <text class="item datetime">{{ getCreatedDate(pdata.created) }}</text>
+        <block for="pdata.tags">
+          <a class="tag" href="{{ getTagPath($item) }}"
+            target="_blank" rel="noopener">
+            {{ $item }}
+          </a>
+          <text class="separator" if="{{$idx !== 2}}">/</text>
+        </block>
+      </div>
+      <text class="title">
+        <a class="title-link" href="{{pdata.urlPath}}"
+          target="_blank" rel="noopener">
+          {{ pdata.title }}
+        </a>
+      </text>
+      <text class="desc">{{ getDescContent(pdata) }}</text>
+    </div>
+  </list-item>
+</template>
+
+<script>
+  import $config from './../config'
+  import router from '@system.router'
+  export default {
+    data: {
+      themeList: $config.theme
+    },
+    props: [
+      'pdata',
+      // 驼峰式在赋值时使用-连接
+      'currentIndex'
+    ],
+    onInit() {
+    },
+    /* -------------------OnClickEvent--------------- */
+    onModuleClick() {
+      router.push({
+        uri: `https://nicelinks.site/post/${this.pdata._id}`
+      })
+    },
+    /* -------------------Self----------------------- */
+    getCreatedDate(datetime) {
+      return global.$util.dateOffset(datetime)
+    },
+    getDescContent(pdata) {
+      return global.$util.interceptString(pdata.abstract || pdata.desc)
+    },
+    getClassifyPath(pdata) {
+      return `https://nicelinks.site/theme/${pdata.classify}`
+    },
+    getUserPath(username) {
+      let userName = username || this.userInfo.username
+      return `https://nicelinks.site/member/${userName}`
+    },
+    getTagPath (item) {
+      return `https://nicelinks.site/tags/${item}`
+    },
+    fillThemeName(classify, theme) {
+      let result = ''
+      this.themeList[classify].map(item => {
+        if (item.value === theme) {
+          result = item.key
+        }
+      })
+      return result
+    }
+  }
+</script>
+
+<style lang="less">
+@import './../assets/styles/style.less';
+.module{
+  .flex-box-mixins(column, top, left);
+  width: 100%;
+  background-color: @white;
+  border-radius: 0.5 * @size-factor;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, .1);
+  margin-bottom: 5 * @size-factor;
+  padding: 3 * @size-factor;
+  .title {
+    font-size: 5 * @size-factor;
+    color: @black;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 3 * @size-factor;
+  }
+  .desc {
+    font-size: 4 * @size-factor;
+    color: @silver-grey;
+    margin-bottom: 3 * @size-factor;
+  }
+}
+.meta {
+  width: 100%;
+  white-space: nowrap;
+  margin-bottom: 3 * @size-factor;
+  .item {
+    color: @black-grey;
+    cursor: pointer;
+  }
+  .separator{
+    margin: 0 @size-factor;
+  }
+  .classify{
+    color: @brand;
+  }
+  .username{
+    color: @black-grey;
+  }
+  .datetime{
+    color: @black-grey;
+    margin-right: 3 * @size-factor;
+  }
+  .tag{
+    color: @black-grey;
+    cursor: pointer;
+  }
+}
+</style>

@@ -114,11 +114,65 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
+function promptMessage(message = '') {
+  if (!message) return
+  prompt.showToast({
+    message: message
+  })
+}
+
+// 获取字符串实际长度(包含汉字,汉字统一按照 2 字节算;)
+function getByteLength(str = '') {
+  if (typeof str !== 'string') return str.length
+  return str.replace(/[^\x00-\xff]/g, 'aa').length
+}
+
+function interceptString(string = '', length = 140) {
+  if (this.getByteLength(string) > 140) {
+    return string.substring(0, length) + '...'
+  } else {
+    return string
+  }
+}
+
+function dateOffset(thatTime, nowTime) {
+  if (!arguments.length) return ''
+  var arg = arguments
+  var now = arg[1] ? arg[1] : new Date().getTime()
+  var offsetValue = now - new Date(arg[0]).getTime()
+  var minute = 1000 * 60
+  var hour = minute * 60
+  var day = hour * 24
+  var week = day * 7
+  var month = day * 30
+  var year = month * 12
+
+  let unitArr = ['年前', '月前', '周前', '天前', '小时前', '分钟前', '刚刚']
+  let offsetArr = [year, month, week, day, hour, minute].map((item, index) => {
+    return {
+      value: offsetValue / item,
+      unit: unitArr[index]
+    }
+  })
+
+  for (let key in offsetArr) {
+    if (offsetArr[key].value >= 1) {
+      return parseInt(offsetArr[key].value) + ' ' + offsetArr[key].unit
+    }
+  }
+
+  return unitArr[6]
+}
+
 export default {
   showMenu,
   createShortcut,
   serverUrl,
   queryString,
   setCurrentDate,
-  getRandomInt
+  getRandomInt,
+  promptMessage,
+  interceptString,
+  getByteLength,
+  dateOffset
 }

@@ -29,8 +29,11 @@
     "designWidth": 800
   },
   "router": {
-    "entry": "pages/Main",
+    "entry": "pages/Home",
     "pages": {
+      "pages/Home": {
+        "component": "index"
+      },
       "pages/Main": {
         "component": "index"
       },
@@ -47,6 +50,10 @@
     "titleBarTextColor": "#333333",
     "menu": true,
     "pages": {
+      "pages/Home": {
+        "titleBarText": "倾城之链",
+        "menu": true
+      },
       "pages/Main": {
         "titleBarText": "倾城之链",
         "menu": true

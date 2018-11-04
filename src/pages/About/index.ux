@@ -58,7 +58,6 @@
       copyright: '© 2018 nicelink.site'
     },
     onInit () {
-      // 设置标题栏
       this.$page.setTitleBar({ text: this.name })
     },
     onShow(){

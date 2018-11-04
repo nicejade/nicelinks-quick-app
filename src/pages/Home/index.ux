@@ -1,0 +1,120 @@
+<import name="tab-bar-item" src="./../../components/TabBarItem"></import>
+<import name="nice-list" src="./../../components/NiceList"></import>
+
+<template>
+  <div class="home-page">
+    <tabs onchange="onChangeTabIndex" index="{{ currentIndex }}">
+      <tab-bar class="tab-bar">
+        <tab-bar-item title="{{list[0].title}}" index="0"
+          path="./../../assets/icons/main.svg">
+        </tab-bar-item>
+        <tab-bar-item title="{{list[1].title}}" index="1"
+          path="./../../assets/icons/home.svg">
+        </tab-bar-item>
+        <tab-bar-item title="{{list[2].title}}" index="2"
+          path="./../../assets/icons/about.svg">
+        </tab-bar-item>
+      </tab-bar>
+      <tab-content class="tab-content">
+        <list class="nice-list" onscrollbottom="handleScrollBottom">
+          <block for="{{ niceLinksList }}">
+            <nice-list pdata="{{$item}}"></nice-list>
+          </block>
+          <list-item type="loadMore" class="load-more">
+            <progress class="progress" type="circular"></progress>
+            <text class="loading-tip">正在加载更多</text>
+          </list-item>
+        </list>
+      </tab-content>
+    </tabs>
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+  export default {
+    private: {
+      list: [
+        {title: '主页'},
+        {title: '优站'},
+        {title: '关于'}
+      ],
+      currentIndex: 1,
+      currentPageCount: 1,
+      niceLinksList: []
+    },
+    onInit () {
+      this.requestMoreData()
+    },
+    onShow () {
+      this.currentIndex = 1
+    },
+    onBackPress () {
+    },
+    onChangeTabIndex (evt) {
+      this.currentIndex = evt.index
+      if (evt.index === 0) {
+        router.push({
+          uri: '/pages/Main'
+        })
+      }
+      if (evt.index === 2) {
+        router.push({
+          uri: '/pages/NiceDetail'
+        })
+      }
+    },
+    handleScrollBottom() {
+      this.currentPageCount += 1
+      this.requestMoreData()
+    },
+    requestMoreData() {
+      const params = { 
+        active: true,
+        pageCount: this.currentPageCount,
+        sortType: -1,
+        sortTarget: 'likes',
+        pageSize: 10
+      }
+      global.$apis.links.getNiceLinks(params).then(result => {
+        this.niceLinksList = this.niceLinksList.concat(result)
+      }).catch(error => {
+        $util.promptMessage(error)
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import './../../assets/styles/style.less';
+  .home-page {
+    flex: 1;
+    flex-direction: column;
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      height: @tab-bar-height;
+      border: 0px solid #eeeeee;
+      background-color: @white;
+      border-top-width: 1px;
+    }
+    .tab-content {
+      flex: 1;
+      margin-bottom: @tab-bar-height;
+      .nice-list{
+        background-color: #eeeeee;
+        padding: 0 3 * @size-factor;
+      }
+      .load-more{
+        .flex-box-mixins(row, center, center);
+        margin-bottom: 2 * @size-factor;
+        .progress{
+          text-align: right;
+        }
+        .loading-tip{
+          text-align: left;
+        }
+      }
+    }
+  }
+</style>

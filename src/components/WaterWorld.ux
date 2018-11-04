@@ -1,6 +1,6 @@
 <template>
-  <div class="nice-particle" show="{{isShowFlag}}">
-    <canvas id="waterCanvas" class="water-canvas"></canvas>
+  <div class="nice-particle">
+    <canvas show="{{isShowFlag}}" id="waterCanvas" class="water-canvas"></canvas>
   </div>
 </template>
 

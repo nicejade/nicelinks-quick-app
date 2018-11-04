@@ -12,7 +12,7 @@
           {{ pdata.createdBy || '' }}
         </a>
         <text class="separator">·</text>
-        <text class="item datetime">{{ getCreatedDate(pdata.created) }}</text>
+        <!-- <text class="item datetime">{{ getCreatedDate(pdata.created) }}</text> -->
         <block for="pdata.tags">
           <a class="tag" href="{{ getTagPath($item) }}"
             target="_blank" rel="noopener">
@@ -21,12 +21,10 @@
           <text class="separator" if="{{$idx !== 2}}">/</text>
         </block>
       </div>
-      <text class="title">
-        <a class="title-link" href="{{pdata.urlPath}}"
-          target="_blank" rel="noopener">
-          {{ pdata.title }}
-        </a>
-      </text>
+      <a class="title" href="{{pdata.urlPath}}"
+        target="_blank" rel="noopener">
+        {{ pdata.title }}
+      </a>
       <text class="desc">{{ getDescContent(pdata) }}</text>
     </div>
   </list-item>
@@ -109,24 +107,26 @@
   white-space: nowrap;
   margin-bottom: 3 * @size-factor;
   .item {
-    color: @black-grey;
+    color: @silver-grey;
     cursor: pointer;
+    white-space: nowrap;
   }
   .separator{
+    color: @black-grey;
     margin: 0 @size-factor;
   }
   .classify{
     color: @brand;
   }
   .username{
-    color: @black-grey;
+    color: @silver-grey;
   }
   .datetime{
-    color: @black-grey;
+    color: @silver-grey;
     margin-right: 3 * @size-factor;
   }
   .tag{
-    color: @black-grey;
+    color: @silver-grey;
     cursor: pointer;
   }
 }

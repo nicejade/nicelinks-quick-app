@@ -51,15 +51,15 @@
     "menu": true,
     "pages": {
       "pages/Home": {
-        "titleBarText": "倾城之链",
+        "titleBarText": "倾城之链 - NICE LINKS",
         "menu": true
       },
       "pages/Main": {
-        "titleBarText": "倾城之链",
+        "titleBarText": "倾城之链 - 主页",
         "menu": true
       },
       "pages/NiceDetail": {
-        "titleBarText": "倾城详情"
+        "titleBarText": "倾城之链 - 详情"
       },
       "pages/About": {
         "menu": false

@@ -51,6 +51,9 @@
     },
     onBackPress () {
     },
+    onMenuPress () {
+      this.$app.$def.showMenu()
+    },
     onChangeTabIndex (evt) {
       this.currentIndex = evt.index
       if (evt.index === 0) {

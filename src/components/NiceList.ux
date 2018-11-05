@@ -7,12 +7,6 @@
           {{ fillThemeName(pdata.classify, pdata.theme) }}
         </a>
         <text class="separator">·</text>
-        <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
-          target="_blank" rel="noopener">
-          {{ pdata.createdBy || '' }}
-        </a>
-        <text class="separator">·</text>
-        <!-- <text class="item datetime">{{ getCreatedDate(pdata.created) }}</text> -->
         <block for="pdata.tags">
           <a class="tag" href="{{ getTagPath($item) }}"
             target="_blank" rel="noopener">
@@ -26,6 +20,19 @@
         {{ pdata.title }}
       </a>
       <text class="desc">{{ getDescContent(pdata) }}</text>
+      <div class="operate-area">
+        <div class="action-area">
+          <div class="like-icon"></div>
+          <text class="separator">{{ pdata.likes }}</text>  
+        </div>
+        <text class="separator">由</text>
+        <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
+          target="_blank" rel="noopener">
+          {{ pdata.createdBy || '' }}
+        </a>
+        <text class="separator">分享于</text>
+        <text class="item datetime">{{ getCreatedDate(pdata.created) }}</text>
+      </div>
     </div>
   </list-item>
 </template>
@@ -35,7 +42,8 @@
   import router from '@system.router'
   export default {
     data: {
-      themeList: $config.theme
+      themeList: $config.theme,
+      likeIcon: './../assets/icons/main.svg'
     },
     props: [
       'pdata',
@@ -102,18 +110,16 @@
     margin-bottom: 3 * @size-factor;
   }
 }
+.separator{
+  color: @black-grey;
+  margin: 0 @size-factor;
+}
 .meta {
   width: 100%;
   white-space: nowrap;
   margin-bottom: 3 * @size-factor;
-  .item {
+  .item{
     color: @silver-grey;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .separator{
-    color: @black-grey;
-    margin: 0 @size-factor;
   }
   .classify{
     color: @brand;
@@ -127,7 +133,23 @@
   }
   .tag{
     color: @silver-grey;
-    cursor: pointer;
+  }
+}
+.operate-area{
+  .action-area{
+    border-radius: @size-factor;
+    border: 1px solid @border-grey;
+    margin-right: 3 * @size-factor;
+    padding: @size-factor;
+    .like-icon{
+      width: 5 * @size-factor;
+      height: 5 * @size-factor;
+      margin: 0 2 * @size-factor;
+      background-image: url("./../assets/icons/like.png");
+      background-size: 100%;
+      background-repeat: none;
+      background-position: center;
+    }
   }
 }
 </style>

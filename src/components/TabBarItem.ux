@@ -21,7 +21,10 @@
   @import './../assets/styles/style.less';
   .tab-bar-area {
     .flex-box-mixins(row, center, center);
+    width: 33.33%;
     height: 100%;
+    border: 1px solid @border-grey;
+    border-left-width: 0;
     .tab-icon {
       width: 5 * @size-factor;
       height: 5 * @size-factor;

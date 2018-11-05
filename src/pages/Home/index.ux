@@ -3,22 +3,22 @@
 
 <template>
   <div class="home-page">
-    <tabs onchange="onChangeTabIndex" index="{{ currentIndex }}">
-      <tab-bar class="tab-bar">
-        <tab-bar-item title="{{list[0].title}}" index="0"
+    <tabs onchange="onChangeTabIndex" index="{{ currentIndex }}" if="{{isShowTabs}}">
+      <tab-bar class="tab-bar" mode="scrollable">
+        <tab-bar-item title="{{tabBarList[0]}}" index="0"
           path="./../../assets/icons/main.svg">
         </tab-bar-item>
-        <tab-bar-item title="{{list[1].title}}" index="1"
+        <tab-bar-item title="{{tabBarList[1]}}" index="1"
           path="./../../assets/icons/home.svg">
         </tab-bar-item>
-        <tab-bar-item title="{{list[2].title}}" index="2"
+        <tab-bar-item title="{{tabBarList[2]}}" index="2"
           path="./../../assets/icons/about.svg">
         </tab-bar-item>
       </tab-bar>
       <tab-content class="tab-content">
         <list class="nice-list" onscrollbottom="handleScrollBottom">
           <block for="{{ niceLinksList }}">
-            <nice-list pdata="{{$item}}"></nice-list>
+            <nice-list pdata="{{ $item }}"></nice-list>
           </block>
           <list-item type="loadMore" class="load-more">
             <progress class="progress" type="circular"></progress>
@@ -32,57 +32,121 @@
 
 <script>
   import router from '@system.router'
+  import prompt from '@system.prompt'
   export default {
     private: {
-      list: [
-        {title: '主页'},
-        {title: '优站'},
-        {title: '关于'}
-      ],
-      currentIndex: 1,
+      tabBarList: ['主页', '优站', '关于'],
+      requestParamList: { 
+        active: true,
+        pageCount: 1,
+        sortType: -1,
+        sortTarget: 'likes',
+        pageSize: 10
+      },
+      isShowTabs: true,
+      currentIndex: -1,
       currentPageCount: 1,
       niceLinksList: []
     },
     onInit () {
       this.requestMoreData()
+      // this.$watch('currentIndex', 'onWatchCurrentIndex')
     },
     onShow () {
-      this.currentIndex = 1
+      this.currentIndex = -1
     },
     onBackPress () {
     },
     onMenuPress () {
       this.$app.$def.showMenu()
     },
+    /* -----------------onCallBackEvent----------------- */ 
+    onWatchCurrentIndex(newValue, oldValue) {
+    },
     onChangeTabIndex (evt) {
+      switch(evt.index) {
+        case 0: 
+          router.push({
+            uri: '/pages/Main'
+          })
+          break;
+        case 1:
+          this.showSwitchDialog()
+          return;
+        case 2:
+          router.push({
+            uri: '/pages/NiceDetail'
+          })
+          break;
+        default:
+          this.showSwitchDialog()
+          return;
+      }
       this.currentIndex = evt.index
-      if (evt.index === 0) {
-        router.push({
-          uri: '/pages/Main'
-        })
-      }
-      if (evt.index === 2) {
-        router.push({
-          uri: '/pages/NiceDetail'
-        })
-      }
+    },
+    showSwitchDialog() {
+      prompt.showContextMenu({
+        itemList: [
+          '最新分享',
+          '最早分享',
+          '热门分享',
+          '冷门分享',
+          '取消'
+        ],
+        itemColor: '#464547',
+        success:  (data) => {
+          let param = {}
+          switch(data.index) {
+            case 0: 
+              param.sortTarget = 'created'
+              param.sortType = -1
+              break;
+            case 1:
+              param.sortTarget = 'created'
+              param.sortType = 1
+              break;
+            case 2:
+              param.sortTarget = 'likes'
+              param.sortType = -1
+              break;
+            case 3:
+              param.sortTarget = 'likes'
+              param.sortType = 1
+              break;
+            case 4:
+              return;
+          }
+          this.currentPageCount = 1
+          this.requestMoreData(param)
+        },
+        cancel: () => {
+        },
+        fail: (data, code) => {
+        },
+        complete: () => {
+          /* @desc: Hack 连续多次触发同一个 tab-bar 得不到响应问题 */
+          this.isShowTabs = false
+          setTimeout(() => {
+            this.isShowTabs = true
+          }, 0)
+        }
+      })
     },
     handleScrollBottom() {
       this.currentPageCount += 1
       this.requestMoreData()
     },
-    requestMoreData() {
-      const params = { 
-        active: true,
-        pageCount: this.currentPageCount,
-        sortType: -1,
-        sortTarget: 'likes',
-        pageSize: 10
-      }
-      global.$apis.links.getNiceLinks(params).then(result => {
-        this.niceLinksList = this.niceLinksList.concat(result)
+    requestMoreData(extraParams = {}) {
+      Object.assign(this.requestParamList, extraParams)
+      this.requestParamList.pageCount = this.currentPageCount
+      global.$apis.links.getNiceLinks(this.requestParamList).then(result => {
+        if (this.currentPageCount === 1) {
+          this.niceLinksList = result
+        } else {
+          this.niceLinksList = this.niceLinksList.concat(result)
+        }
       }).catch(error => {
-        $util.promptMessage(error)
+        global.$util.promptMessage(error)
       })
     }
   }
@@ -97,15 +161,15 @@
       position: fixed;
       bottom: 0;
       height: @tab-bar-height;
-      border: 0px solid #eeeeee;
       background-color: @white;
+      border: 1px solid @border-grey;
       border-top-width: 1px;
     }
     .tab-content {
       flex: 1;
       margin-bottom: @tab-bar-height;
       .nice-list{
-        background-color: #eeeeee;
+        background-color: @white-grey;
         padding: 0 3 * @size-factor;
       }
       .load-more{

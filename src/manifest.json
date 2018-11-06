@@ -14,7 +14,6 @@
     { "name": "system.prompt" },
     { "name": "system.router" },
     { "name": "system.shortcut" },
-    { "name": "system.webview" },
     {
       "name": "service.share",
       "params": {
@@ -46,8 +45,8 @@
     }
   },
   "display": {
-    "titleBarBackgroundColor": "#f2f2f2",
-    "titleBarTextColor": "#333333",
+    "titleBarBackgroundColor": "#fefefe",
+    "titleBarTextColor": "#212121",
     "menu": true,
     "pages": {
       "pages/Home": {

@@ -19,10 +19,8 @@
 </template>
 
 <script>
-  import webview from '@system.webview'
   export default {
     private: {
-      text: '欢迎打开详情页'
     },
     onShow(){
       APP_STATISTICS.page_show(this)
@@ -39,9 +37,7 @@
     },
     /* -------------------SelfCustomEvent------------------ */
     onOpenWebsiteClick () {
-      webview.loadUrl({
-        url: 'https://nicelinks.site'
-      })
+      $util.jump2nicelinks()
     }
   }
 </script>

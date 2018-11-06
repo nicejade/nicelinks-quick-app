@@ -29,7 +29,6 @@
       width: 5 * @size-factor;
       height: 5 * @size-factor;
       margin-right: 1.5 * @size-factor;
-      fill: green;
     }
     .tab-title {
       color: @silver-grey;

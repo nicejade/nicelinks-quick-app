@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import router from '@system.router'
   import prompt from '@system.prompt'
   export default {
     private: {
@@ -66,17 +65,13 @@
     onChangeTabIndex (evt) {
       switch(evt.index) {
         case 0: 
-          router.push({
-            uri: '/pages/Main'
-          })
+          $util.jump2theUrl('/pages/Main')
           break;
         case 1:
           this.showSwitchDialog()
           return;
         case 2:
-          router.push({
-            uri: '/pages/NiceDetail'
-          })
+          $util.jump2theUrl('/pages/NiceDetail')
           break;
         default:
           this.showSwitchDialog()

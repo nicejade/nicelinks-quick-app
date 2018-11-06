@@ -55,7 +55,7 @@
     /* -------------------OnClickEvent--------------- */
     onModuleClick() {
       router.push({
-        uri: `https://nicelinks.site/post/${this.pdata._id}`
+        uri: `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
       })
     },
     /* -------------------Self----------------------- */
@@ -66,14 +66,14 @@
       return global.$util.interceptString(pdata.abstract || pdata.desc)
     },
     getClassifyPath(pdata) {
-      return `https://nicelinks.site/theme/${pdata.classify}`
+      return `https://nicelinks.site/theme/${pdata.classify}?utm_source=quickapp`
     },
     getUserPath(username) {
       let userName = username || this.userInfo.username
-      return `https://nicelinks.site/member/${userName}`
+      return `https://nicelinks.site/member/${userName}?utm_source=quickapp`
     },
     getTagPath (item) {
-      return `https://nicelinks.site/tags/${item}`
+      return `https://nicelinks.site/tags/${item}?utm_source=quickapp`
     },
     fillThemeName(classify, theme) {
       let result = ''
@@ -99,10 +99,13 @@
   padding: 3 * @size-factor;
   .title {
     font-size: 5 * @size-factor;
-    color: @black;
+    color: @ink-black;
     font-weight: bold;
     text-align: left;
     margin-bottom: 3 * @size-factor;
+    &:hover{
+      color: @brand;
+    }
   }
   .desc {
     font-size: 4 * @size-factor;

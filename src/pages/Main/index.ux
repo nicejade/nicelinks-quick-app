@@ -32,16 +32,13 @@
 </template>
 
 <script>
-  import webview from '@system.webview'
-  import router from '@system.router'
   import app from '@system.app'
   const appInfo = app.getInfo()
 
   export default {
     // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
     private: {
-      totalLinksCount: 0,
-      niceJumpLink: 'https://nicelinks.site/explore/all?from=quickapp'
+      totalLinksCount: 0
     },
 
     protected: {
@@ -79,15 +76,11 @@
 
     /* -------------------SelfCustomEvent------------------ */
     onOpenWebsiteClick () {
-      webview.loadUrl({
-        url: this.niceJumpLink
-      })
+      $util.jump2nicelinks()
     },
 
     onGotoDetailClick () {
-      router.push({
-        uri: '/pages/NiceDetail'
-      })
+      $util.jump2theUrl('/pages/NiceDetail')
     }
   }
 </script>

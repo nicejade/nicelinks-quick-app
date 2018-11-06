@@ -15,7 +15,7 @@
           <text class="separator" if="{{$idx !== 2}}">/</text>
         </block>
       </div>
-      <a class="title" href="{{pdata.urlPath}}"
+      <a class="title" href="{{pdata.urlPath}}?utm_source=nicelinks.site"
         target="_blank" rel="noopener">
         {{ pdata.title }}
       </a>

@@ -7,6 +7,7 @@
   "icon": "/assets/images/logo.png",
   "features": [
     { "name": "system.fetch" },
+    { "name": "system.webview" },
     { "name": "system.storage" },
     { "name": "system.device" },
     { "name": "system.network" },

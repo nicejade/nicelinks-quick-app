@@ -35,7 +35,7 @@
   export default {
     private: {
       tabBarList: ['主页', '优站', '关于'],
-      requestParamList: { 
+      requestParamList: {
         active: true,
         pageCount: 1,
         sortType: -1,
@@ -57,21 +57,21 @@
     onBackPress () {
     },
     onMenuPress () {
-      this.$app.$def.showMenu()
+      $utils.showMenu()
     },
-    /* -----------------onCallBackEvent----------------- */ 
+    /* -----------------onCallBackEvent----------------- */
     onWatchCurrentIndex(newValue, oldValue) {
     },
     onChangeTabIndex (evt) {
       switch(evt.index) {
-        case 0: 
-          $util.jump2theUrl('/pages/Main')
+        case 0:
+          $utils.route2theUrl('/pages/Main')
           break;
         case 1:
           this.showSwitchDialog()
           return;
         case 2:
-          $util.jump2theUrl('/pages/NiceDetail')
+          $utils.route2theUrl('/pages/NiceDetail')
           break;
         default:
           this.showSwitchDialog()
@@ -92,7 +92,7 @@
         success:  (data) => {
           let param = {}
           switch(data.index) {
-            case 0: 
+            case 0:
               param.sortTarget = 'created'
               param.sortType = -1
               break;
@@ -141,7 +141,7 @@
           this.niceLinksList = this.niceLinksList.concat(result)
         }
       }).catch(error => {
-        global.$util.promptMessage(error)
+        global.$utils.promptMessage(error)
       })
     }
   }

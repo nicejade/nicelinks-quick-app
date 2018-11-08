@@ -1,4 +1,4 @@
-import $util from './util'
+import $utils from './utils'
 import $fetch from '@system.fetch'
 
 function requestHandle(params) {
@@ -37,7 +37,7 @@ export default {
   get: function(url, params, op) {
     return requestHandle({
       method: 'get',
-      url: $util.queryString(url, params)
+      url: $utils.queryString(url, params)
     })
   }
 }

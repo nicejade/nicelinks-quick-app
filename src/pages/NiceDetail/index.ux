@@ -33,11 +33,11 @@
      * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
      */
     onMenuPress() {
-      this.$app.$def.showMenu()
+      $utils.showMenu()
     },
     /* -------------------SelfCustomEvent------------------ */
     onOpenWebsiteClick () {
-      $util.jump2nicelinks()
+      $utils.route2nicelinks()
     }
   }
 </script>

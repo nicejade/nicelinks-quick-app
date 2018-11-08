@@ -1,11 +1,11 @@
 import $ajax from '../ajax'
-import $util from '../util'
+import $utils from '../utils'
 
 export default {
   getAllLinksCount(data) {
-    return $ajax.get($util.serverUrl('getAllLinksCount'), data)
+    return $ajax.get($utils.composeApiPath('getAllLinksCount'), data)
   },
   getNiceLinks(data) {
-    return $ajax.get($util.serverUrl('getNiceLinks'), data)
+    return $ajax.get($utils.composeApiPath('getNiceLinks'), data)
   }
 }

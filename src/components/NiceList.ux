@@ -23,7 +23,7 @@
       <div class="operate-area">
         <div class="action-area">
           <div class="like-icon"></div>
-          <text class="separator">{{ pdata.likes }}</text>  
+          <text class="separator">{{ pdata.likes }}</text>
         </div>
         <text class="separator">由</text>
         <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
@@ -60,10 +60,10 @@
     },
     /* -------------------Self----------------------- */
     getCreatedDate(datetime) {
-      return global.$util.dateOffset(datetime)
+      return global.$utils.dateOffset(datetime)
     },
     getDescContent(pdata) {
-      return global.$util.interceptString(pdata.abstract || pdata.desc)
+      return global.$utils.interceptString(pdata.abstract || pdata.desc)
     },
     getClassifyPath(pdata) {
       return `https://nicelinks.site/theme/${pdata.classify}?utm_source=quickapp`

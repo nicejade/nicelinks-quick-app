@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import { $util } from './../helper'
   let tim, bai, a, b, c, s, p, r, x, y, z, x1, y1, max, p2, han, h, pt, hei;
   const colorRandomList = [
     [87, 209, 201, 0.3],
@@ -56,7 +55,7 @@
       this.mContext =this.mCanvas.getContext('2d');
       this.mCanvas.width = 800;
       this.mCanvas.height = 400;
-      this.randomIndex = $util.getRandomInt(0, 10)
+      this.randomIndex = $utils.getRandomInt(0, 10)
 
       this.drawTimerId = setInterval(() => {
         this.drawParticleCanvas()
@@ -156,4 +155,3 @@
     }
   }
   </style>
-    

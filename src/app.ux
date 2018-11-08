@@ -6,17 +6,17 @@
   /**
    * @desc: 应用级别的配置、方法，供所有页面公用；
    */
-  import { $util, $apis } from './helper'
+  import { $utils, $apis } from './helper'
 
   /* @desc: 注入方法至全局 global,以便页面调用 */
   const hook2global = global.__proto__ || global
   hook2global.$apis = $apis
-  hook2global.$util = $util
+  hook2global.$utils = $utils
 
   export default {
     $apis: $apis,
-    showMenu: $util.showMenu,
-    createShortcut: $util.createShortcut,
+    showMenu: $utils.showMenu,
+    createShortcut: $utils.createShortcut,
     onCreate () {
       APP_STATISTICS.app_sta_init( this )
     }

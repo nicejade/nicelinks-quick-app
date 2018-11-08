@@ -71,16 +71,16 @@
 
     // (监听菜单按钮动作)当用户点击菜单按钮时触发
     onMenuPress () {
-      this.$app.$def.showMenu()
+      $utils.showMenu()
     },
 
     /* -------------------SelfCustomEvent------------------ */
     onOpenWebsiteClick () {
-      $util.jump2nicelinks()
+      $utils.route2nicelinks()
     },
 
     onGotoDetailClick () {
-      $util.jump2theUrl('/pages/NiceDetail')
+      $utils.route2theUrl('/pages/NiceDetail')
     }
   }
 </script>

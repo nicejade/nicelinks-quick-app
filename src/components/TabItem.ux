@@ -1,0 +1,56 @@
+<template>
+  <list class="nice-list" onscrollbottom="handleScrollBottom">
+    <block for="{{ niceLinksList }}">
+      <nice-list pdata="{{ $item }}"></nice-list>
+    </block>
+    <list-item type="loadMore" class="load-more">
+      <progress class="progress" type="circular"></progress>
+      <text class="loading-tip">正在加载更多</text>
+    </list-item>
+  </list>
+</template>
+
+<script>
+  export default {
+    data: {
+      currentPageCount: 1,
+      requestParamList: {
+        active: true,
+        pageCount: 1,
+        sortType: -1,
+        sortTarget: 'likes',
+        pageSize: 10
+      },
+      niceLinksList: []
+    },
+    props: ['pdata'],
+    onInit () {
+      this.requestMoreData(this.pdata)
+    },
+    handleScrollBottom() {
+      this.currentPageCount += 1
+      this.requestMoreData()
+    },
+    requestMoreData(extraParams = {}) {
+      Object.assign(this.requestParamList, extraParams)
+      this.requestParamList.pageCount = this.currentPageCount
+      global.$apis.links.getNiceLinks(this.requestParamList).then(result => {
+        if (this.currentPageCount === 1) {
+          this.niceLinksList = result
+        } else {
+          this.niceLinksList = this.niceLinksList.concat(result)
+        }
+      }).catch(error => {
+        global.$utils.promptMessage(error)
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+@import './../assets/styles/style.less';
+.nice-list{
+  background-color: @white-grey;
+  padding: 0 3 * @size-factor;
+}
+</style>

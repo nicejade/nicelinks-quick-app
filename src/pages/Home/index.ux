@@ -1,179 +1,125 @@
-<import name="tab-bar-item" src="./../../components/TabBarItem"></import>
-<import name="nice-list" src="./../../components/NiceList"></import>
-
 <template>
   <div class="home-page">
     <tabs onchange="onChangeTabIndex" index="{{ currentIndex }}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
-        <tab-bar-item title="{{tabBarList[0]}}" index="0"
-          path="./../../assets/icons/main.svg">
-        </tab-bar-item>
-        <tab-bar-item title="{{tabBarList[1]}}" index="1"
-          path="./../../assets/icons/home.svg">
-        </tab-bar-item>
-        <tab-bar-item title="{{tabBarList[2]}}" index="2"
-          path="./../../assets/icons/about.svg">
-        </tab-bar-item>
+        <stack class="tab-item-warp" for="(index, item) in tabBarList">
+          <text class="tab-item {{index===currentIndex ? 'active' : ''}}">{{item.name}}</text>
+          <div if="index===currentIndex" class="line"></div>
+        </stack>
       </tab-bar>
       <tab-content class="tab-content">
-        <list class="nice-list" onscrollbottom="handleScrollBottom">
-          <block for="{{ niceLinksList }}">
-            <nice-list pdata="{{ $item }}"></nice-list>
-          </block>
-          <list-item type="loadMore" class="load-more">
-            <progress class="progress" type="circular"></progress>
-            <text class="loading-tip">正在加载更多</text>
-          </list-item>
-        </list>
+        <div class="tab-content-section" for="{{tabBarList}}">
+          <TabItem pdata="{{ $item }}"></TabItem>
+        </div>
       </tab-content>
     </tabs>
   </div>
 </template>
 
+<import name="nice-list" src="./../../components/NiceList"></import>
+
 <script>
   import prompt from '@system.prompt'
   export default {
     private: {
-      tabBarList: ['主页', '优站', '关于'],
-      requestParamList: {
-        active: true,
-        pageCount: 1,
-        sortType: -1,
-        sortTarget: 'likes',
-        pageSize: 10
-      },
-      isShowTabs: true,
-      currentIndex: -1,
-      currentPageCount: 1,
-      niceLinksList: []
+      currentIndex: 0,
+      tabBarList: [
+        {
+          name: '热门',
+          sortTarget: 'likes',
+          sortType: -1
+        },
+        {
+          name: '最新',
+          sortTarget: 'created',
+          sortType: -1
+        },
+        {
+          name: '最早',
+          sortTarget: 'created',
+          sortType: -1
+        },
+        {
+          name: '冷门',
+          sortTarget: 'likes',
+          sortType: 1
+        }
+      ],
+      isShowTabs: true
     },
-    onInit () {
-      this.requestMoreData()
-      // this.$watch('currentIndex', 'onWatchCurrentIndex')
+    onInit() {
+      // this.requestMoreData()
     },
-    onShow () {
-      this.currentIndex = -1
+    onShow() {
     },
-    onBackPress () {
+    onBackPress() {
     },
-    onMenuPress () {
+    onMenuPress() {
       $utils.showMenu()
     },
     /* -----------------onCallBackEvent----------------- */
     onWatchCurrentIndex(newValue, oldValue) {
     },
-    onChangeTabIndex (evt) {
-      switch(evt.index) {
-        case 0:
-          $utils.route2theUrl('/pages/Main')
-          break;
-        case 1:
-          this.showSwitchDialog()
-          return;
-        case 2:
-          $utils.route2theUrl('/pages/NiceDetail')
-          break;
-        default:
-          this.showSwitchDialog()
-          return;
-      }
+    onChangeTabIndex(evt) {
       this.currentIndex = evt.index
-    },
-    showSwitchDialog() {
-      prompt.showContextMenu({
-        itemList: [
-          '最新分享',
-          '最早分享',
-          '热门分享',
-          '冷门分享',
-          '取消'
-        ],
-        itemColor: '#464547',
-        success:  (data) => {
-          let param = {}
-          switch(data.index) {
-            case 0:
-              param.sortTarget = 'created'
-              param.sortType = -1
-              break;
-            case 1:
-              param.sortTarget = 'created'
-              param.sortType = 1
-              break;
-            case 2:
-              param.sortTarget = 'likes'
-              param.sortType = -1
-              break;
-            case 3:
-              param.sortTarget = 'likes'
-              param.sortType = 1
-              break;
-            case 4:
-              return;
-          }
-          this.currentPageCount = 1
-          this.requestMoreData(param)
-        },
-        cancel: () => {
-        },
-        fail: (data, code) => {
-        },
-        complete: () => {
-          /* @desc: Hack 连续多次触发同一个 tab-bar 得不到响应问题 */
-          this.isShowTabs = false
-          setTimeout(() => {
-            this.isShowTabs = true
-          }, 0)
-        }
-      })
-    },
-    handleScrollBottom() {
-      this.currentPageCount += 1
-      this.requestMoreData()
-    },
-    requestMoreData(extraParams = {}) {
-      Object.assign(this.requestParamList, extraParams)
-      this.requestParamList.pageCount = this.currentPageCount
-      global.$apis.links.getNiceLinks(this.requestParamList).then(result => {
-        if (this.currentPageCount === 1) {
-          this.niceLinksList = result
-        } else {
-          this.niceLinksList = this.niceLinksList.concat(result)
-        }
-      }).catch(error => {
-        global.$utils.promptMessage(error)
-      })
     }
   }
 </script>
 
+<import name="TabItem" src="./../../components/TabItem"></import>
+
 <style lang="less">
   @import './../../assets/styles/style.less';
+
   .home-page {
     flex: 1;
     flex-direction: column;
     .tab-bar {
-      position: fixed;
-      bottom: 0;
       height: @tab-bar-height;
-      background-color: @white;
-      border: 1px solid @border-grey;
+      background-color: #ffffff;
       border-top-width: 1px;
+      border-color: rgba(255, 255, 255, 0.1);
+
+      .tab-item-warp {
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        color: @grey;
+
+        text {
+          width: 20 * @size-factor;
+          height: @tab-bar-height;
+          line-height: @tab-bar-height;
+          font-size: 4.5 * @size-factor;
+          color: #71777d;
+          text-align: center;
+        }
+
+        .active {
+          color: @brand;
+          font-size: 5 * @size-factor;
+        }
+
+        .line {
+          height: 4px;
+          width: 50%;
+          background-color: #424242;
+        }
+      }
     }
+
     .tab-content {
       flex: 1;
-      margin-bottom: @tab-bar-height;
-      .nice-list{
-        background-color: @white-grey;
-        padding: 0 3 * @size-factor;
-      }
-      .load-more{
+      .load-more {
         .flex-box-mixins(row, center, center);
         margin-bottom: 2 * @size-factor;
-        .progress{
+
+        .progress {
           text-align: right;
         }
-        .loading-tip{
+
+        .loading-tip {
           text-align: left;
         }
       }

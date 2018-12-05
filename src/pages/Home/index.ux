@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <tabs onchange="onChangeTabIndex" index="{{ currentIndex }}" if="{{isShowTabs}}">
+    <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
         <stack class="tab-item-warp" for="(index, item) in tabBarList">
           <text class="tab-item {{index===currentIndex ? 'active' : ''}}">{{item.name}}</text>
@@ -8,8 +8,8 @@
         </stack>
       </tab-bar>
       <tab-content class="tab-content">
-        <div class="tab-content-section" for="{{tabBarList}}">
-          <TabItem pdata="{{ $item }}"></TabItem>
+        <div class="tab-content-section" for="(index, $item) in tabBarList">
+          <TabItem pdata="{{$item}}" if="index===currentIndex"></TabItem>
         </div>
       </tab-content>
     </tabs>
@@ -37,7 +37,7 @@
         {
           name: '最早',
           sortTarget: 'created',
-          sortType: -1
+          sortType: 1
         },
         {
           name: '冷门',

@@ -1,5 +1,8 @@
 <template>
   <div class="home-page">
+    <TitleBar home=true @menu-click="onMenuClick" title="倾城之链">
+      <input class="title-bar-button search" type="button" @click='search' />
+    </TitleBar>
     <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
         <stack class="tab-item-warp" for="(index, item) in tabBarList">
@@ -13,10 +16,13 @@
         </div>
       </tab-content>
     </tabs>
+    <div show="{{isShowSidebar}}" class="mask" @click="hideSidebar"></div>
+    <Sidebar open="{{isShowSidebar}}" @hide-sidebar="hideSidebar"></Sidebar>
   </div>
 </template>
 
-<import name="nice-list" src="./../../components/NiceList"></import>
+<import name="TitleBar" src="./../../components/TitleBar"></import>
+<import name="Sidebar" src="./../../components/Sidebar"></import>
 
 <script>
   import prompt from '@system.prompt'
@@ -45,7 +51,8 @@
           sortType: 1
         }
       ],
-      isShowTabs: true
+      isShowTabs: true,
+      isShowSidebar: false
     },
     onInit() {
       // this.requestMoreData()
@@ -58,7 +65,13 @@
       $utils.showMenu()
     },
     /* -----------------onCallBackEvent----------------- */
+    hideSidebar() {
+      this.isShowSidebar = false
+    },
     onWatchCurrentIndex(newValue, oldValue) {
+    },
+    onMenuClick() {
+      this.isShowSidebar = true
     },
     onChangeTabIndex(evt) {
       this.currentIndex = evt.index
@@ -69,60 +82,76 @@
 <import name="TabItem" src="./../../components/TabItem"></import>
 
 <style lang="less">
-  @import './../../assets/styles/style.less';
+@import './../../assets/styles/style.less';
 
-  .home-page {
-    flex: 1;
-    flex-direction: column;
-    .tab-bar {
-      height: @tab-bar-height;
-      background-color: #ffffff;
-      border-top-width: 1px;
-      border-color: rgba(255, 255, 255, 0.1);
-
-      .tab-item-warp {
-        flex: 1;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        color: @grey;
-
-        text {
-          width: 20 * @size-factor;
-          height: @tab-bar-height;
-          line-height: @tab-bar-height;
-          font-size: 4.5 * @size-factor;
-          color: #71777d;
-          text-align: center;
-        }
-
-        .active {
-          color: @brand;
-          font-size: 5 * @size-factor;
-        }
-
-        .line {
-          height: 4px;
-          width: 50%;
-          background-color: #424242;
-        }
-      }
+.home-page {
+  flex: 1;
+  flex-direction: column;
+  .title-bar-button {
+    align-self: center;
+    width: 6 * @size-factor;
+    height: 6 * @size-factor;
+    margin: 0 @size-factor;
+    :active{
+      height: 7 * @size-factor;
     }
+  }
+  .search {
+    background-image: url('./../../assets/icons/search.png');
+  }
+  .tab-bar {
+    height: @tab-bar-height;
+    background-color: #ffffff;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: @border-grey;
 
-    .tab-content {
+    .tab-item-warp {
       flex: 1;
-      .load-more {
-        .flex-box-mixins(row, center, center);
-        margin-bottom: 2 * @size-factor;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      color: @grey;
 
-        .progress {
-          text-align: right;
-        }
+      text {
+        width: 20 * @size-factor;
+        height: @tab-bar-height;
+        line-height: @tab-bar-height;
+        font-size: 4.5 * @size-factor;
+        color: #71777d;
+        text-align: center;
+      }
 
-        .loading-tip {
-          text-align: left;
-        }
+      .active {
+        color: @brand;
+        font-size: 5 * @size-factor;
+      }
+
+      .line {
+        height: 4px;
+        width: 50%;
+        background-color: #424242;
       }
     }
   }
+  .tab-content {
+    flex: 1;
+    .load-more {
+      .flex-box-mixins(row, center, center);
+      margin-bottom: 2 * @size-factor;
+
+      .progress {
+        text-align: right;
+      }
+
+      .loading-tip {
+        text-align: left;
+      }
+    }
+  }
+  .mask {
+    height: 100%;
+    width: 100%;
+  }
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <list class="nice-list" onscrollbottom="handleScrollBottom">
     <block for="{{ niceLinksList }}">
-      <nice-list pdata="{{ $item }}"></nice-list>
+      <NiceList pdata="{{ $item }}"></NiceList>
     </block>
     <list-item type="loadMore" class="load-more">
       <progress class="progress" type="circular"></progress>
@@ -9,6 +9,8 @@
     </list-item>
   </list>
 </template>
+
+<import name="NiceList" src="./NiceList"></import>
 
 <script>
   export default {

@@ -46,6 +46,8 @@
     }
   },
   "display": {
+    "fullScreen": false,
+    "titleBar": false,
     "titleBarBackgroundColor": "#fefefe",
     "titleBarTextColor": "#212121",
     "menu": true,

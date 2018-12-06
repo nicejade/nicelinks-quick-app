@@ -1,0 +1,190 @@
+<template>
+  <div class="sidebar-area {{className}}">
+    <div class="top-area">
+      <input class="close-btn" type="button" @click='closeDrawer' />
+    </div>
+    <div class="logo-area">
+      <image src="./../../assets/images/logo.png" style="resize-mode:center;border-radius: 128px;"></image>
+    </div>
+    <div class="count-area">
+      <image class="app-icon" src="./../../assets/icons/favorites.svg"></image>
+      <text class="app-title">倾城之链</text>
+    </div>
+    <div class="menu-area">
+      <div class="menu-top">
+        <div class="menu-item">
+          <input class="item-text" type="button" value="我的收藏" @click='route2markPage'/>
+        </div>  
+        <div class="menu-item">    
+          <input class="item-text" type="button" value="保存桌面" @click='createShortcut'/>
+        </div>
+      </div>
+      <div class="menu-bottom">
+        <div class="menu-item">
+          <input class="item-text" type="button" value="关于" @click='route2aboutPage'/>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import storage from '@system.storage'
+  const FAVORITES = 'favoritesList'
+
+  export default {
+    data: {
+      className: 'sidebar-origin',
+    },
+    props: {
+      open: {
+        type: Boolean,
+        default() {
+          return false
+        }
+      }
+    },
+    onInit() {
+      console.info(`外部传递的数据：`, this.open)
+      // 监听数据变化
+      this.$watch('open', 'watchShowChange')
+    },
+    watchShowChange(newV, oldV) {
+      console.info(`监听数据变化：`, newV, oldV)
+      this.className = newV ? 'sidebar-show' : 'sidebar-hide'
+    },
+    closeDrawer () {
+      this.$emit('hide-sidebar', {})
+    },
+    route2markPage () {
+      this.$app.$def.route2markPage()
+    },
+    createShortcut () {
+      this.$app.$def.createShortcut()
+    },
+    route2aboutPage () {
+      $utils.route2aboutPage()
+    }
+  }
+</script>
+
+<style lang="less">
+  @import './../assets/styles/style.less';
+  .sidebar-area {
+    .flex-box-mixins(row, center, center);
+    position: fixed;
+    height: 100%;
+    width: 500px;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-image: url('./../../assets/images/pure-moon.jpg');
+    background-size: cover;
+    .top-area {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 160px;
+      padding: 10px 20px;
+    }
+    .close-btn {
+      align-self: center;
+      width: 7 * @size-factor;
+      height: 7 * @size-factor;
+      background-size: cover;
+      background-image: url('./../../assets/icons/close.png');
+      :active{
+        width: 7 * @size-factor;
+        height: 8 * @size-factor;
+      }
+    }
+    .logo-area {
+      justify-content: center;
+      width: 100%;
+      height: 320px;
+      padding: 20px;
+    }
+    .count-area {
+      width:80%;
+      height:120px;
+      justify-content: center;
+      align-items: center;
+      .app-icon {
+        width: 5 * @size-factor;
+        height: 5 * @size-factor;
+        resize-mode: contain;
+      }
+      .app-title {
+        font-size: 8 * @size-factor;
+        margin-left: @size-factor;
+        color: @white;
+      }
+    }
+    .menu-area {
+      flex-direction: column;
+      justify-content: space-between;
+      width: 80%;
+      height: 100%;
+      padding-bottom: 10 * @size-factor;;
+      .menu-top {
+        border-top-width: 2px;
+        border-top-color: #ffffff;
+        flex-direction: column;
+      }
+      .menu-bottom {
+        border-top-width: 2px;
+        border-top-color:#ffffff;
+        flex-direction: column;
+      }
+      .menu-item {
+        margin-top: 4 * @size-factor;;
+        width: 100%;
+        .item-text {
+          width: 100%;
+          background-color: #000000;
+          color: @white;
+          font-size: 7 * @size-factor;
+          text-align: center;
+        }
+        .item-text:active {
+          background-color: #363434;
+        }
+      }
+    }
+    .bottom-area {
+      flex-direction: column;
+      align-self: flex-end;
+    }
+  }
+  .sidebar-origin {
+    transform: translateX(-500px);
+  }
+  .sidebar-show {
+    animation-name: drawershow;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+  }
+  .sidebar-hide {
+    animation-name: drawerhide;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+  }
+
+@keyframes drawershow {
+    0% {
+      transform: translateX(-500px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+@keyframes drawerhide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-500px);
+    }
+}
+</style>

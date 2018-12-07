@@ -10,7 +10,7 @@
           <div if="index===currentIndex" class="line"></div>
         </stack>
       </tab-bar>
-      <tab-content class="tab-content">
+      <tab-content class="tab-content" if="isShowTabContent">
         <div class="tab-content-section" for="(index, $item) in tabBarList">
           <TabItem pdata="{{$item}}" if="index===currentIndex"></TabItem>
         </div>
@@ -29,30 +29,27 @@
   export default {
     private: {
       currentIndex: 0,
-      tabBarList: [
-        {
+      tabBarList: [{
           name: '热门',
           sortTarget: 'likes',
           sortType: -1
-        },
-        {
+        }, {
           name: '最新',
           sortTarget: 'created',
           sortType: -1
-        },
-        {
+        }, {
           name: '最早',
           sortTarget: 'created',
           sortType: 1
-        },
-        {
+        }, {
           name: '冷门',
           sortTarget: 'likes',
           sortType: 1
         }
       ],
       isShowTabs: true,
-      isShowSidebar: false
+      isShowSidebar: false,
+      isShowTabContent: true
     },
     onInit() {
       // this.requestMoreData()
@@ -65,8 +62,24 @@
       $utils.showMenu()
     },
     /* -----------------onCallBackEvent----------------- */
-    hideSidebar() {
+    hideSidebar(response) {
       this.isShowSidebar = false
+      // $utils.promptMessage(JSON.stringify(response, null, 2))
+      if (response.detail.classify === undefined) return
+      
+      this.isShowTabContent = false
+      const classifyMapping = {
+        skill: '0',
+        resource: '1',
+        life: '2',
+        info: '3'
+      }
+      const tempArray = JSON.parse(JSON.stringify(this.tabBarList))
+      tempArray.forEach(item => {
+        item.classify = classifyMapping[response.detail.classify] || -1
+      })
+      this.tabBarList = tempArray
+      this.isShowTabContent = true
     },
     onWatchCurrentIndex(newValue, oldValue) {
     },
@@ -74,6 +87,7 @@
       this.isShowSidebar = true
     },
     onChangeTabIndex(evt) {
+      this.$broadcast('changeTab')
       this.currentIndex = evt.index
     }
   }
@@ -131,21 +145,6 @@
         height: 4px;
         width: 50%;
         background-color: #424242;
-      }
-    }
-  }
-  .tab-content {
-    flex: 1;
-    .load-more {
-      .flex-box-mixins(row, center, center);
-      margin-bottom: 2 * @size-factor;
-
-      .progress {
-        text-align: right;
-      }
-
-      .loading-tip {
-        text-align: left;
       }
     }
   }

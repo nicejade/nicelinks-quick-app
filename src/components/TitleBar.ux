@@ -40,31 +40,33 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #f2f2f2;
-    color: #333333;
+    background-color: @white-grey;
+    color: @ink-black;
     width: 100%;
-    height: 160px;
+    height: 20 * @size-factor;
     padding: 10px 20px;
 
     .title-bar-title {
-      color: #333333;
+      color: @ink-black;
       margin-left: 24px;
-      font-size: 48px;
-      line-height: 160px;
+      font-size: 6 * @size-factor;
+      line-height: 20 * @size-factor;
     }
 
     .title-bar-button {
       align-self: center;
-      width: 48px;
-      height: 48px;
-      margin: 0 5px;
+      width: 6 * @size-factor;
+      height: 6 * @size-factor;
+      margin: 0 @size-factor;
     }
 
     .title-bar-button:active {
-      height: 56px;
+      height: 7 * @size-factor;
     }
 
     .menu {
+      width: 6.6 * @size-factor;
+      height: 6.6 * @size-factor;
       background-image: url('./../../assets/icons/menu.png');
     }
 

@@ -4,10 +4,11 @@
       <NiceList pdata="{{ $item }}"></NiceList>
     </block>
     <list-item type="loadMore" class="load-more">
-      <progress class="progress" type="circular"></progress>
-      <text class="loading-tip">正在加载更多</text>
+      <progress class="progress" type="circular" if="isLoadMore"></progress>
+      <text class="loading-tip" if="isLoadMore">正在加载更多</text>
+      <text class="no-more-tip" if="!isLoadMore">--- 嘿，云集美好，我是有底线的---</text>
     </list-item>
-  </list>
+  </list>no-more-tip
 </template>
 
 <import name="NiceList" src="./NiceList"></import>
@@ -23,20 +24,31 @@
         sortTarget: 'likes',
         pageSize: 10
       },
+      isLoadMore: true,
       niceLinksList: []
     },
     props: ['pdata'],
     onInit () {
       this.requestMoreData(this.pdata)
+      this.$watch('pdata', 'onWatchPdata')
+      this.$on('changeTab', this.handelChangeTab)
     },
     handleScrollBottom() {
       this.currentPageCount += 1
       this.requestMoreData()
     },
+    handelChangeTab() {
+      this.isLoadMore = true
+    },
+    onWatchPdata() {
+      this.isLoadMore = true
+      this.requestMoreData(this.pdata)
+    },
     requestMoreData(extraParams = {}) {
       Object.assign(this.requestParamList, extraParams)
       this.requestParamList.pageCount = this.currentPageCount
       global.$apis.links.getNiceLinks(this.requestParamList).then(result => {
+        this.isLoadMore = result.length > 0
         if (this.currentPageCount === 1) {
           this.niceLinksList = result
         } else {
@@ -54,5 +66,15 @@
 .nice-list{
   background-color: @white-grey;
   padding: 0 3 * @size-factor;
+  .load-more {
+    .flex-box-mixins(row, center, center);
+    margin-bottom: 2 * @size-factor;
+    .progress {
+      text-align: right;
+    }
+    .loading-tip {
+      text-align: center;
+    }
+  }
 }
 </style>

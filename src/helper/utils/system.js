@@ -69,12 +69,19 @@ function route2aboutPage() {
   })
 }
 
+function route2aboutAuthor() {
+  router.push({
+    uri: 'https://about.me/nicejade/?utm_source=quickapp'
+  })
+}
+
 export default {
+  route2aboutPage,
   createShortcut,
   showMenu() {
-    const itemFuncMapping = [createShortcut, call3thPartyShare, route2aboutPage, null]
+    const itemFuncMapping = [call3thPartyShare, route2aboutPage, route2aboutAuthor, createShortcut, null]
     prompt.showContextMenu({
-      itemList: ['保存桌面', '分享', '关于', '取消'],
+      itemList: ['分享倾城', '关于倾城', '关于作者', '保存桌面', '取消'],
       success: ret => {
         if (itemFuncMapping[ret.index]) {
           itemFuncMapping[ret.index]()

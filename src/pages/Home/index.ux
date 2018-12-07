@@ -1,7 +1,8 @@
 <template>
   <div class="home-page">
     <TitleBar home=true @menu-click="onMenuClick" title="倾城之链">
-      <input class="title-bar-button search" type="button" @click='search' />
+      <!-- <input class="title-bar-button search" type="button" @click='onSearchClick' /> -->
+      <input class="title-bar-button share" type="button" @click='onShareClick' />
     </TitleBar>
     <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
@@ -65,7 +66,7 @@
     hideSidebar(response) {
       this.isShowSidebar = false
       // $utils.promptMessage(JSON.stringify(response, null, 2))
-      if (response.detail.classify === undefined) return
+      if (!response.detail || response.detail.classify === undefined) return
       
       this.isShowTabContent = false
       const classifyMapping = {
@@ -82,6 +83,9 @@
       this.isShowTabContent = true
     },
     onWatchCurrentIndex(newValue, oldValue) {
+    },
+    onShareClick() {
+      $utils.call3thPartyShare()
     },
     onMenuClick() {
       this.isShowSidebar = true
@@ -112,6 +116,9 @@
   }
   .search {
     background-image: url('./../../assets/icons/search.png');
+  }
+  .share {
+    background-image: url('./../../assets/icons/share.png');
   }
   .tab-bar {
     height: @tab-bar-height;

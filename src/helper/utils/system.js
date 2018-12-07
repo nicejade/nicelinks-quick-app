@@ -75,13 +75,20 @@ function route2aboutAuthor() {
   })
 }
 
+function route2mainPage() {
+  router.push({
+    uri: '/pages/Main'
+  })
+}
+
 export default {
   route2aboutPage,
   createShortcut,
+  call3thPartyShare,
   showMenu() {
-    const itemFuncMapping = [call3thPartyShare, route2aboutPage, route2aboutAuthor, createShortcut, null]
+    const itemFuncMapping = [route2mainPage, route2aboutPage, route2aboutAuthor, createShortcut, null]
     prompt.showContextMenu({
-      itemList: ['分享倾城', '关于倾城', '关于作者', '保存桌面', '取消'],
+      itemList: ['倾城主页', '关于倾城', '关于作者', '保存桌面', '取消'],
       success: ret => {
         if (itemFuncMapping[ret.index]) {
           itemFuncMapping[ret.index]()

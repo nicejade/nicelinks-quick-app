@@ -6,13 +6,17 @@
   /**
    * @desc: 应用级别的配置、方法，供所有页面公用；
    */
-  import { $utils, $apis, $constant } from './helper'
+  import { $utils, $apis, $constant, $storage } from './helper'
 
   /* @desc: 注入方法至全局 global,以便页面调用 */
   const hook2global = global.__proto__ || global
   hook2global.$apis = $apis
   hook2global.$utils = $utils
   hook2global.$constant = $constant
+  hook2global.$storage = $storage
+
+  // 注入 regeneratorRuntime 以支持 async、await 语法；
+  hook2global.regeneratorRuntime = require('babel-runtime/regenerator')
 
   export default {
     $apis: $apis,

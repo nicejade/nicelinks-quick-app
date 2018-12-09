@@ -17,8 +17,9 @@
         </div>
       </tab-content>
     </tabs>
-    <div show="{{isShowSidebar}}" class="mask" @click="hideSidebar"></div>
-    <Sidebar open="{{isShowSidebar}}" @hide-sidebar="hideSidebar"></Sidebar>
+    <stack show="{{isShowSidebar}}" class="mask-shadow" @click="hideSidebar">
+      <Sidebar open="{{isShowSidebar}}" @hide-sidebar="hideSidebar"></Sidebar>
+    </stack>
   </div>
 </template>
 
@@ -147,17 +148,20 @@
         color: @brand;
         font-size: 5 * @size-factor;
       }
-
       .line {
         height: 4px;
         width: 50%;
-        background-color: #424242;
+        background-color: @grey-black;
       }
     }
   }
-  .mask {
+  .mask-shadow {
+    /* Confused：(fixed) 必须加，否则 opacity 不能很好的工作? */
+    position: fixed;
     height: 100%;
     width: 100%;
+    background-color: @grey-black;
+    opacity: 0.3;
   }
 }
 </style>

@@ -47,7 +47,7 @@
     requestMoreData(extraParams = {}) {
       Object.assign(this.requestParamList, extraParams)
       this.requestParamList.pageCount = this.currentPageCount
-      global.$apis.links.getNiceLinks(this.requestParamList).then(result => {
+      $apis.links.getNiceLinks(this.requestParamList).then(result => {
         this.isLoadMore = result.length > 0
         if (this.currentPageCount === 1) {
           this.niceLinksList = result
@@ -55,7 +55,7 @@
           this.niceLinksList = this.niceLinksList.concat(result)
         }
       }).catch(error => {
-        global.$utils.promptMessage(error)
+        $utils.promptMessage(error)
       })
     }
   }

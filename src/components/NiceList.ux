@@ -22,8 +22,12 @@
       <text class="desc">{{ getDescContent(pdata) }}</text>
       <div class="operate-area">
         <div class="action-area">
-          <div class="like-icon"></div>
+          <div class="like-icon action-icon" @click="onLikeClick"></div>
           <text class="separator">{{ pdata.likes }}</text>
+        </div>
+        <div class="action-area" @click="onShareClick">
+          <div class="share-icon action-icon"></div>
+          <text class="separator">分享</text>
         </div>
         <text class="separator">由</text>
         <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
@@ -39,7 +43,7 @@
 
 <script>
   import $config from './../config'
-  import router from '@system.router'
+
   export default {
     data: {
       themeList: $config.theme,
@@ -54,11 +58,21 @@
     },
     /* -------------------OnClickEvent--------------- */
     onModuleClick() {
-      router.push({
-        uri: `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
-      })
+      $utils.route2theUrl(`https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`)
     },
-    /* -------------------Self----------------------- */
+    onLikeClick() {
+      $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
+    },
+    onShareClick() {
+      const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+      const params = {
+        title: this.pdata.title,
+        summary: `${this.pdata.desc} 来自#倾城之链#「快应用」`,
+        targetUrl: targetUrl
+      }
+      $utils.call3thPartyShare(params)
+    },
+    /* -------------------SelfCustomEvent----------------------- */
     getCreatedDate(datetime) {
       return global.$utils.dateOffset(datetime)
     },
@@ -142,16 +156,21 @@
   .action-area{
     border-radius: @size-factor;
     border: 1px solid @border-grey;
-    margin-right: 3 * @size-factor;
+    margin-right: 2 * @size-factor;
     padding: @size-factor;
-    .like-icon{
+    .action-icon{
       width: 5 * @size-factor;
       height: 5 * @size-factor;
-      margin: 0 2 * @size-factor;
-      background-image: url("./../assets/icons/like.png");
+      margin: 0 1 * @size-factor;
       background-size: 100%;
       background-repeat: none;
       background-position: center;
+    }
+    .like-icon{
+      background-image: url("./../assets/icons/like.png");
+    }
+    .share-icon{
+      background-image: url("./../assets/icons/share.png");
     }
   }
 }

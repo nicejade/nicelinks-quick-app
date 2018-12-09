@@ -35,14 +35,13 @@ function createShortcut() {
 /**
  * @desc 调起第三方分享
  */
-function call3thPartyShare() {
+function call3thPartyShare(params = {}) {
   share.share({
     shareType: 0,
-    title: '快应用分享',
-    summary:
-      '倾城之链，作为一个开放平台，旨在云集全球优秀网站，探索互联网中更广阔的世界；在这里，你可以轻松发现、学习、分享更多有用或有趣的事物。',
-    imagePath: '/assets/images/logo.png',
-    targetUrl: 'https://nicelinks.site',
+    title: params.title || '倾城之链「快应用」',
+    summary: params.summary || $constant.SITE_DESC,
+    imagePath: params.imagePath || '/assets/images/logo.png',
+    targetUrl: params.targetUrl || 'https://nicelinks.site',
     platforms: ['SYSTEM'],
     success: function(data) {
       prompt.showToast({
@@ -71,7 +70,7 @@ function route2aboutPage() {
 
 function route2aboutAuthor() {
   router.push({
-    uri: 'https://about.me/nicejade/?utm_source=quickapp'
+    uri: 'https://nicelinks.site/member/admin?utm_source=quickapp'
   })
 }
 

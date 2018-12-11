@@ -1,0 +1,30 @@
+<template>
+  <web id="nicelink" class="web-page" src="{{path}}"></web>
+</template>
+
+<script>
+  export default {
+    data: {
+    },
+    onInit() {
+    },
+    onBackPress() {
+      const $nicelink = this.$element('nicelink')
+      $nicelink.canBack({
+        callback: function (elem) {
+          if (elem) {
+            return $nicelink.back()
+          }
+          $utils.routerBack()
+        }.bind(this)
+      })
+      return true
+    }
+  }
+</script>
+
+<style lang="less">
+@import './../../assets/styles/style.less';
+.web-page {
+}
+</style>

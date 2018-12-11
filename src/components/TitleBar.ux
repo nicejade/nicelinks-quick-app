@@ -1,13 +1,13 @@
 <template>
   <div class="title-bar-area">
     <div>
-      <input if="{{home}}" class="title-bar-button menu" type="button" @click='showCustomMenu' />
-      <input else class="title-bar-button back" type="button" @click='routePageBack' />
+      <input if="{{home}}" class="title-bar-button menu" type="button" @click='onShowCustomMenu' />
+      <input else class="title-bar-button back" type="button" @click='onRoutePageBack' />
       <text class="title-bar-title">{{title}}</text>
     </div>
     <div>
       <slot></slot>
-      <input if="{{home}}" class="title-bar-button more" type="button" @click='showSystemMenu' />
+      <input if="{{home}}" class="title-bar-button more" type="button" @click='onShowSystemMenu' />
     </div>
   </div>
 </template>
@@ -20,13 +20,13 @@
     props: ['home', 'title'],
     onInit() {
     },
-    routePageBack() {
+    onRoutePageBack() {
       router.back()
     },
-    showCustomMenu() {
+    onShowCustomMenu() {
       this.$emit('menuClick', {})
     },
-    showSystemMenu() {
+    onShowSystemMenu() {
       this.$app.$def.showMenu()
     }
   }

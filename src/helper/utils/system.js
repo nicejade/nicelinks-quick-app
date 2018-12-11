@@ -105,6 +105,17 @@ export default {
     })
   },
 
+  routerBack() {
+    router.back()
+  },
+
+  reute2WebPage(params = {}) {
+    router.push({
+      uri: 'pages/WebPage',
+      params: params
+    })
+  },
+
   route2theUrl(url, params) {
     router.push({
       uri: url,

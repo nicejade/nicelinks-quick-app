@@ -42,6 +42,9 @@
       },
       "pages/About": {
         "component": "index"
+      },
+      "pages/WebPage": {
+        "component": "index"
       }
     }
   },

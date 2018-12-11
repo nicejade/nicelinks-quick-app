@@ -8,10 +8,9 @@
         </a>
         <text class="separator">·</text>
         <block for="pdata.tags">
-          <a class="tag" href="{{ getTagPath($item) }}"
-            target="_blank" rel="noopener">
-            {{ $item }}
-          </a>
+          <div class="tag" @click="onTagClick($item)">
+            <text>{{ $item }}</text>
+          </div>
           <text class="separator" if="{{$idx !== 2}}">/</text>
         </block>
       </div>
@@ -58,7 +57,8 @@
     },
     /* -------------------OnClickEvent--------------- */
     onModuleClick() {
-      $utils.route2theUrl(`https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`)
+      const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+      $utils.reute2WebPage({path: targetPath})
     },
     onLikeClick() {
       $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
@@ -71,6 +71,10 @@
         targetUrl: targetUrl
       }
       $utils.call3thPartyShare(params)
+    },
+    onTagClick(item) {
+      const targetPath = `https://nicelinks.site/tags/${item}?utm_source=quickapp`
+      $utils.reute2WebPage({path: targetPath})
     },
     /* -------------------SelfCustomEvent----------------------- */
     getCreatedDate(datetime) {
@@ -85,9 +89,6 @@
     getUserPath(username) {
       let userName = username || this.userInfo.username
       return `https://nicelinks.site/member/${userName}?utm_source=quickapp`
-    },
-    getTagPath (item) {
-      return `https://nicelinks.site/tags/${item}?utm_source=quickapp`
     },
     fillThemeName(classify, theme) {
       let result = ''

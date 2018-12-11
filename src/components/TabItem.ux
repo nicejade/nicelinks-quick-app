@@ -8,7 +8,7 @@
       <text class="loading-tip" if="isLoadMore">正在加载更多</text>
       <text class="no-more-tip" if="!isLoadMore">--- 嘿，云集美好，我是有底线的---</text>
     </list-item>
-  </list>no-more-tip
+  </list>
 </template>
 
 <import name="NiceList" src="./NiceList"></import>

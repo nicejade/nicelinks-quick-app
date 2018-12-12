@@ -10,12 +10,17 @@
     "server": "hap server",
     "watch": "hap watch",
     "build": "hap build",
+    "deploy": "pm2 start command/deploy.sh --name 'nicelinks-quickapp'",
     "postinstall": "hap postinstall",
     "debug": "hap debug",
     "release": "hap release",
     "precommit-msg": "echo '🚧 Pre-commit checks...' && exit 0",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier-watch": "onchange '**/*.md' -- prettier --write {{changed}}"
+  },
+  "dependencies": {
+    "global": "^4.3.2",
+    "md5": "^2.2.1"
   },
   "devDependencies": {
     "address": "^1.0.3",
@@ -38,7 +43,9 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "lint-staged": "^7.3.0",
+    "npm": "^6.5.0",
     "opn": "^5.3.0",
+    "pm2": "^3.2.3",
     "portfinder": "^1.0.17",
     "prettier": "^1.14.3",
     "socket.io": "^2.1.0",
@@ -63,8 +70,5 @@
   },
   "eslintIgnore": [
     "package.json"
-  ],
-  "dependencies": {
-    "md5": "^2.2.1"
-  }
+  ]
 }

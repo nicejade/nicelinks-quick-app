@@ -37,39 +37,39 @@
 </template>
 
 <script>
-  /**
-   * 默认的菜单页(可自定义)
-   * name 默认为 manifest 文件中的 name 字段
-   * icon 默认为 manifest 文件中的 icon 字段
-   * 若需修改页面中文本，请修改ViewModel private中对应变量
-   * 注意：使用加载器测试`创建桌面快捷方式`功能时，需要进入系统：
-   *  设置->权限管理->开启应用加载器的`桌面快捷方式`权限，才能保存到桌面。
-   *  应用上线后可自动获取`桌面快捷方式`权限；
-   */
-  export default {
-    protected: {
-      name: null,
-      icon: null
-    },
-    private: {
-      desc: '旨在云集全球优秀网站，方便你我探索互联网中更广阔的世界',
-      serviceType: '工具学习类',
-      subjectInfo: '晚晴幽草轩出品',
-      copyright: '© 2018 nicelink.site'
-    },
-    onInit () {
-      this.$page.setTitleBar({ text: this.name })
-    },
-    onShow(){
-      APP_STATISTICS.page_show(this)
-    },
-    onHide() {
-      APP_STATISTICS.page_hide(this)
-    },
-    createShortcut () {
-      this.$app.$def.createShortcut()
-    }
+/**
+ * 默认的菜单页(可自定义)
+ * name 默认为 manifest 文件中的 name 字段
+ * icon 默认为 manifest 文件中的 icon 字段
+ * 若需修改页面中文本，请修改ViewModel private中对应变量
+ * 注意：使用加载器测试`创建桌面快捷方式`功能时，需要进入系统：
+ *  设置->权限管理->开启应用加载器的`桌面快捷方式`权限，才能保存到桌面。
+ *  应用上线后可自动获取`桌面快捷方式`权限；
+ */
+export default {
+  protected: {
+    name: null,
+    icon: null
+  },
+  private: {
+    desc: '旨在云集全球优秀网站，方便你我探索互联网中更广阔的世界',
+    serviceType: '工具学习类',
+    subjectInfo: '晚晴幽草轩出品',
+    copyright: '© 2018 nicelink.site'
+  },
+  onInit() {
+    this.$page.setTitleBar({ text: this.name })
+  },
+  onShow() {
+    APP_STATISTICS.page_show(this)
+  },
+  onHide() {
+    APP_STATISTICS.page_hide(this)
+  },
+  createShortcut() {
+    this.$app.$def.createShortcut()
   }
+}
 </script>
 
 <style lang="less">
@@ -142,4 +142,3 @@
   }
 }
 </style>
-  

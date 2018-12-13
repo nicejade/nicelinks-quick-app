@@ -19,30 +19,29 @@
 </template>
 
 <script>
-  export default {
-    private: {
-    },
-    onShow(){
-      APP_STATISTICS.page_show(this)
-    },
-    onHide() {
-      APP_STATISTICS.page_hide(this)
-    },
-    onMenuPress() {
-      $utils.showMenu()
-    },
-    /* -------------------SelfCustomEvent------------------ */
-    onOpenWebsiteClick () {
-      $utils.route2nicelinks()
-    }
+export default {
+  private: {},
+  onShow() {
+    APP_STATISTICS.page_show(this)
+  },
+  onHide() {
+    APP_STATISTICS.page_hide(this)
+  },
+  onMenuPress() {
+    $utils.showMenu()
+  },
+  /* -------------------SelfCustomEvent------------------ */
+  onOpenWebsiteClick() {
+    $utils.route2nicelinks()
   }
+}
 </script>
 
 <style lang="less">
-  @import './../../assets/styles/style.less';
-  .nice-detail {
-    .flex-box-mixins(column, center, center);
-    padding: 0 5 * @size-factor;
-    margin: 0;
-  }
+@import './../../assets/styles/style.less';
+.nice-detail {
+  .flex-box-mixins(column, center, center);
+  padding: 0 5 * @size-factor;
+  margin: 0;
+}
 </style>

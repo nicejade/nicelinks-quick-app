@@ -13,69 +13,67 @@
 </template>
 
 <script>
-  import router from '@system.router'
-  export default {
-    data: {
-    },
-    props: ['home', 'title'],
-    onInit() {
-    },
-    onRoutePageBack() {
-      router.back()
-    },
-    onShowCustomMenu() {
-      this.$emit('menuClick', {})
-    },
-    onShowSystemMenu() {
-      this.$app.$def.showMenu()
-    }
+import router from '@system.router'
+export default {
+  data: {},
+  props: ['home', 'title'],
+  onInit() {},
+  onRoutePageBack() {
+    router.back()
+  },
+  onShowCustomMenu() {
+    this.$emit('menuClick', {})
+  },
+  onShowSystemMenu() {
+    this.$app.$def.showMenu()
   }
+}
 </script>
 
 <style lang="less">
-  @import './../assets/styles/style.less';
+@import './../assets/styles/style.less';
 
-  .title-bar-area {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: @white-grey;
+.title-bar-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: @white-grey;
+  color: @ink-black;
+  width: 100%;
+  height: 20 * @size-factor;
+  padding: 10px 20px;
+
+  .title-bar-title {
     color: @ink-black;
-    width: 100%;
-    height: 20 * @size-factor;
-    padding: 10px 20px;
-
-    .title-bar-title {
-      color: @ink-black;
-      margin-left: 24px;
-      font-size: 6 * @size-factor;
-      line-height: 20 * @size-factor;
-    }
-
-    .title-bar-button {
-      align-self: center;
-      width: 6 * @size-factor;
-      height: 6 * @size-factor;
-      margin: 0 @size-factor;
-    }
-
-    .title-bar-button:active {
-      height: 7 * @size-factor;
-    }
-
-    .menu {
-      width: 6.6 * @size-factor;
-      height: 6.6 * @size-factor;
-      background-image: url('./../../assets/icons/menu.png');
-    }
-
-    .more {
-      background-image: url('./../../assets/icons/more.png');
-    }
-
-    .back {
-      background-image: url('./../../assets/icons/back.png');
-    }
+    margin-left: 24px;
+    font-size: 6 * @size-factor;
+    line-height: 20 * @size-factor;
   }
+
+  .title-bar-button {
+    align-self: center;
+    width: 6 * @size-factor;
+    height: 6 * @size-factor;
+    margin: 0 @size-factor;
+  }
+
+  .title-bar-button:active {
+    height: 7 * @size-factor;
+  }
+
+  .menu {
+    width: 6.6 * @size-factor;
+    height: 6.6 * @size-factor;
+    background-image: url('./../../assets/icons/menu.png');
+  }
+
+  .more {
+    background-image: url('./../../assets/icons/more.png');
+  }
+
+  .back {
+    background-image: url('./../../assets/icons/back.png');
+  }
+}
 </style>

@@ -32,105 +32,107 @@
 </template>
 
 <script>
-  import app from '@system.app'
-  const appInfo = app.getInfo()
+import app from '@system.app'
+const appInfo = app.getInfo()
 
-  export default {
-    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
-    private: {
-      totalLinksCount: 0
-    },
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    totalLinksCount: 0
+  },
 
-    protected: {
-      title: appInfo.name,
-      icon: appInfo.icon
-    },
+  protected: {
+    title: appInfo.name,
+    icon: appInfo.icon
+  },
 
-    onInit () {
-    },
+  onInit() {},
 
-    onReady () {
-    },
+  onReady() {},
 
-    onShow () {
-      APP_STATISTICS.page_show(this)
-      /**
-       * @desc: 调用 API：global.$apis || this.$app._def.$apis (前者更简洁);
-       */
-      const params = { active: true }
-      global.$apis.links.getAllLinksCount(params).then(result => {
+  onShow() {
+    APP_STATISTICS.page_show(this)
+    /**
+     * @desc: 调用 API：global.$apis || this.$app._def.$apis (前者更简洁);
+     */
+    const params = { active: true }
+    global.$apis.links
+      .getAllLinksCount(params)
+      .then(result => {
         this.totalLinksCount = result
-      }).catch((error) => {
+      })
+      .catch(error => {
         console.log(error)
       })
-    },
+  },
 
-    onHide() {
-      APP_STATISTICS.page_hide(this)
-    },
+  onHide() {
+    APP_STATISTICS.page_hide(this)
+  },
 
-    // (监听菜单按钮动作)当用户点击菜单按钮时触发
-    onMenuPress () {
-      $utils.showMenu()
-    },
+  // (监听菜单按钮动作)当用户点击菜单按钮时触发
+  onMenuPress() {
+    $utils.showMenu()
+  },
 
-    /* -------------------SelfCustomEvent------------------ */
-    onOpenWebsiteClick () {
-      $utils.route2nicelinks()
-    },
+  /* -------------------SelfCustomEvent------------------ */
+  onOpenWebsiteClick() {
+    $utils.route2nicelinks()
+  },
 
-    onGotoDetailClick () {
-      $utils.route2theUrl('/pages/NiceDetail')
-    }
+  onGotoDetailClick() {
+    $utils.route2theUrl('/pages/NiceDetail')
   }
+}
 </script>
 
 <style lang="less">
-  @import './../../assets/styles/style.less';
-  .main-page {
+@import './../../assets/styles/style.less';
+.main-page {
+  .flex-box-mixins(column, center, center);
+  width: 100%;
+  .app-title {
+    color: @black;
+    font-size: 8 * @size-factor;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4 * @size-factor;
+  }
+  .app-icon {
+    width: 27 * @size-factor;
+    height: 27 * @size-factor;
+    border-radius: 12 * @size-factor;
+  }
+  .app-desc {
+    margin-top: 2 * @size-factor;
+  }
+  .nice-detail {
+    height: 90 * @size-factor;
     .flex-box-mixins(column, center, center);
-    width: 100%;
-    .app-title{
-      color: @black;
-      font-size: 8 * @size-factor;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 4 * @size-factor;
-    }
-    .app-icon {
-      width: 27 * @size-factor;
-      height: 27 * @size-factor;
-      border-radius: 12 * @size-factor;
-    }
-    .app-desc {
-      margin-top: 2 * @size-factor;
-    }
-    .nice-detail {
-      height: 90 * @size-factor;;
-      .flex-box-mixins(column, center, center);
-    }
-    .find-more {
-      background-color: @black;
-      .title, .desc {
-        color: @white;
-      }
-    }
-    .share-more {
-      color: @black;
-      background-color: @white;
-    }
-    .countup-area {
-      .flex-box-mixins(column, center, center);
-      width: 100%;
-      height: 50 * @size-factor;
-      background-color: @white-grey;
-      .countup-text {
-        color: @black;
-        font-size: 6 * @size-factor;
-      }
-      .countup {
-        font-size: 10 * @size-factor;
-      }
+  }
+  .find-more {
+    background-color: @black;
+    .title,
+    .desc {
+      color: @white;
     }
   }
+  .share-more {
+    color: @black;
+    background-color: @white;
+  }
+  .countup-area {
+    .flex-box-mixins(column, center, center);
+    width: 100%;
+    height: 50 * @size-factor;
+    background-color: @white-grey;
+    .countup-text {
+      color: @black;
+      font-size: 6 * @size-factor;
+    }
+    .countup {
+      font-size: 10 * @size-factor;
+    }
+  }
+}
 </style>

@@ -14,41 +14,43 @@
 <import name="NiceList" src="./NiceList"></import>
 
 <script>
-  export default {
-    data: {
-      currentPageCount: 1,
-      requestParamList: {
-        active: true,
-        pageCount: 1,
-        sortType: -1,
-        sortTarget: 'likes',
-        pageSize: 10
-      },
-      isLoadMore: true,
-      niceLinksList: []
+export default {
+  data: {
+    currentPageCount: 1,
+    requestParamList: {
+      active: true,
+      pageCount: 1,
+      sortType: -1,
+      sortTarget: 'likes',
+      pageSize: 10
     },
-    props: ['pdata'],
-    onInit () {
-      this.requestMoreData(this.pdata)
-      this.$watch('pdata', 'onWatchPdata')
-      this.$on('changeTab', this.handelChangeTab)
-    },
-    handleScrollBottom() {
-      this.currentPageCount += 1
-      this.requestMoreData()
-    },
-    handelChangeTab() {
-      this.isLoadMore = true
-    },
-    onWatchPdata() {
-      this.isLoadMore = true
-      this.requestMoreData(this.pdata)
-    },
-    requestMoreData(extraParams = {}) {
-      const linksStorageKey = 'NICE_LINKS_LIST'
-      Object.assign(this.requestParamList, extraParams)
-      this.requestParamList.pageCount = this.currentPageCount
-      $apis.links.getNiceLinks(this.requestParamList).then(async result => {
+    isLoadMore: true,
+    niceLinksList: []
+  },
+  props: ['pdata'],
+  onInit() {
+    this.requestMoreData(this.pdata)
+    this.$watch('pdata', 'onWatchPdata')
+    this.$on('changeTab', this.handelChangeTab)
+  },
+  handleScrollBottom() {
+    this.currentPageCount += 1
+    this.requestMoreData()
+  },
+  handelChangeTab() {
+    this.isLoadMore = true
+  },
+  onWatchPdata() {
+    this.isLoadMore = true
+    this.requestMoreData(this.pdata)
+  },
+  requestMoreData(extraParams = {}) {
+    const linksStorageKey = 'NICE_LINKS_LIST'
+    Object.assign(this.requestParamList, extraParams)
+    this.requestParamList.pageCount = this.currentPageCount
+    $apis.links
+      .getNiceLinks(this.requestParamList)
+      .then(async result => {
         this.isLoadMore = result.length > 0
         if (this.currentPageCount === 1) {
           this.niceLinksList = result
@@ -59,18 +61,19 @@
         } else {
           this.niceLinksList = this.niceLinksList.concat(result)
         }
-      }).catch(async error => {
+      })
+      .catch(async error => {
         $utils.promptMessage(error)
         this.niceLinksList = await $storage.get(linksStorageKey)
         this.isLoadMore = false
       })
-    }
   }
+}
 </script>
 
 <style lang="less">
 @import './../assets/styles/style.less';
-.nice-list{
+.nice-list {
   background-color: @white-grey;
   padding: 0 3 * @size-factor;
   .load-more {

@@ -3,24 +3,22 @@
 </template>
 
 <script>
-  export default {
-    data: {
-    },
-    onInit() {
-    },
-    onBackPress() {
-      const $nicelink = this.$element('nicelink')
-      $nicelink.canBack({
-        callback: function (elem) {
-          if (elem) {
-            return $nicelink.back()
-          }
-          $utils.routerBack()
-        }.bind(this)
-      })
-      return true
-    }
+export default {
+  data: {},
+  onInit() {},
+  onBackPress() {
+    const $nicelink = this.$element('nicelink')
+    $nicelink.canBack({
+      callback: function(elem) {
+        if (elem) {
+          return $nicelink.back()
+        }
+        $utils.routerBack()
+      }.bind(this)
+    })
+    return true
   }
+}
 </script>
 
 <style lang="less">

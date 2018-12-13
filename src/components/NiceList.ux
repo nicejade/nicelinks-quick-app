@@ -41,75 +41,74 @@
 </template>
 
 <script>
-  import $config from './../config'
+import $config from './../config'
 
-  export default {
-    data: {
-      themeList: $config.theme,
-      likeIcon: './../assets/icons/main.svg'
-    },
-    props: [
-      'pdata',
-      // 驼峰式在赋值时使用-连接
-      'currentIndex'
-    ],
-    onInit() {
-    },
-    /* -------------------OnClickEvent--------------- */
-    onModuleClick() {
-      const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
-      $utils.reute2WebPage({path: targetPath})
-    },
-    onLikeClick() {
-      $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
-    },
-    onShareClick() {
-      const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
-      const params = {
-        title: this.pdata.title,
-        summary: `${this.pdata.desc} 来自#倾城之链#「快应用」`,
-        targetUrl: targetUrl
-      }
-      $utils.call3thPartyShare(params)
-    },
-    onTagClick(item) {
-      const targetPath = `https://nicelinks.site/tags/${item}?utm_source=quickapp`
-      $utils.reute2WebPage({path: targetPath})
-    },
-    /* -------------------SelfCustomEvent----------------------- */
-    getCreatedDate(datetime) {
-      return global.$utils.dateOffset(datetime)
-    },
-    getDescContent(pdata) {
-      return global.$utils.interceptString(pdata.abstract || pdata.desc)
-    },
-    getClassifyPath(pdata) {
-      return `https://nicelinks.site/theme/${pdata.classify}?utm_source=quickapp`
-    },
-    getUserPath(username) {
-      let userName = username || this.userInfo.username
-      return `https://nicelinks.site/member/${userName}?utm_source=quickapp`
-    },
-    fillThemeName(classify, theme) {
-      let result = ''
-      this.themeList[classify].map(item => {
-        if (item.value === theme) {
-          result = item.key
-        }
-      })
-      return result
+export default {
+  data: {
+    themeList: $config.theme,
+    likeIcon: './../assets/icons/main.svg'
+  },
+  props: [
+    'pdata',
+    // 驼峰式在赋值时使用-连接
+    'currentIndex'
+  ],
+  onInit() {},
+  /* -------------------OnClickEvent--------------- */
+  onModuleClick() {
+    const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+    $utils.reute2WebPage({ path: targetPath })
+  },
+  onLikeClick() {
+    $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
+  },
+  onShareClick() {
+    const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+    const params = {
+      title: this.pdata.title,
+      summary: `${this.pdata.desc} 来自#倾城之链#「快应用」`,
+      targetUrl: targetUrl
     }
+    $utils.call3thPartyShare(params)
+  },
+  onTagClick(item) {
+    const targetPath = `https://nicelinks.site/tags/${item}?utm_source=quickapp`
+    $utils.reute2WebPage({ path: targetPath })
+  },
+  /* -------------------SelfCustomEvent----------------------- */
+  getCreatedDate(datetime) {
+    return global.$utils.dateOffset(datetime)
+  },
+  getDescContent(pdata) {
+    return global.$utils.interceptString(pdata.abstract || pdata.desc)
+  },
+  getClassifyPath(pdata) {
+    return `https://nicelinks.site/theme/${pdata.classify}?utm_source=quickapp`
+  },
+  getUserPath(username) {
+    let userName = username || this.userInfo.username
+    return `https://nicelinks.site/member/${userName}?utm_source=quickapp`
+  },
+  fillThemeName(classify, theme) {
+    let result = ''
+    this.themeList[classify].map(item => {
+      if (item.value === theme) {
+        result = item.key
+      }
+    })
+    return result
   }
+}
 </script>
 
 <style lang="less">
 @import './../assets/styles/style.less';
-.module{
+.module {
   .flex-box-mixins(column, top, left);
   width: 100%;
   background-color: @white;
   border-radius: 0.5 * @size-factor;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 5 * @size-factor;
   padding: 3 * @size-factor;
   .title {
@@ -118,7 +117,7 @@
     font-weight: bold;
     text-align: left;
     margin-bottom: 3 * @size-factor;
-    &:hover{
+    &:hover {
       color: @brand;
     }
   }
@@ -128,7 +127,7 @@
     margin-bottom: 3 * @size-factor;
   }
 }
-.separator{
+.separator {
   color: @black-grey;
   margin: 0 @size-factor;
 }
@@ -136,30 +135,30 @@
   width: 100%;
   white-space: nowrap;
   margin-bottom: 3 * @size-factor;
-  .item{
+  .item {
     color: @silver-grey;
   }
-  .classify{
+  .classify {
     color: @brand;
   }
-  .username{
+  .username {
     color: @silver-grey;
   }
-  .datetime{
+  .datetime {
     color: @silver-grey;
     margin-right: 3 * @size-factor;
   }
-  .tag{
+  .tag {
     color: @silver-grey;
   }
 }
-.operate-area{
-  .action-area{
+.operate-area {
+  .action-area {
     border-radius: @size-factor;
     border: 1px solid @border-grey;
     margin-right: 2 * @size-factor;
     padding: @size-factor;
-    .action-icon{
+    .action-icon {
       width: 5 * @size-factor;
       height: 5 * @size-factor;
       margin: 0 1 * @size-factor;
@@ -167,11 +166,11 @@
       background-repeat: none;
       background-position: center;
     }
-    .like-icon{
-      background-image: url("./../assets/icons/like.png");
+    .like-icon {
+      background-image: url('./../assets/icons/like.png');
     }
-    .share-icon{
-      background-image: url("./../assets/icons/share.png");
+    .share-icon {
+      background-image: url('./../assets/icons/share.png');
     }
   }
 }

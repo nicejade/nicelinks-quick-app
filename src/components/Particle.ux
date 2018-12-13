@@ -5,105 +5,103 @@
 </template>
 
 <script>
-  import $device from '@system.device'
-  import $app from '@system.app'
-  const appInfo = $app.getInfo()
+import $device from '@system.device'
+import $app from '@system.app'
+const appInfo = $app.getInfo()
 
-  export default {
-    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
-    private: {
-    },
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {},
 
-    public: {
-      title: appInfo.name,
-      icon: appInfo.icon,
-      mCanvas: null,
-      mContext: null,
-      mParticleNum: 20,
-      mParticleIndex: 0,
-      mParticles: {},
-      mWidth: 800,
-      mHeight: 300
-    },
+  public: {
+    title: appInfo.name,
+    icon: appInfo.icon,
+    mCanvas: null,
+    mContext: null,
+    mParticleNum: 20,
+    mParticleIndex: 0,
+    mParticles: {},
+    mWidth: 800,
+    mHeight: 300
+  },
 
-    onInit () {
-    },
+  onInit() {},
 
-    onReady () {
-      setTimeout(() => {
-        this.startNiceDraw()
-      }, 1000)
-    },
+  onReady() {
+    setTimeout(() => {
+      this.startNiceDraw()
+    }, 1000)
+  },
 
-    onShow () {
-    },
+  onShow() {},
 
-    createParticle () {
-      const that = {}
-      that.posX = this.mWidth / 2; // position X
-      that.posY = this.mHeight / 8; // position Y
-      that.vx = Math.random() * 10 - 5; // velocity X
-      that.vy = Math.random() * 10 - 5; // velocity Y
-      that.width = 1; // particle width
-      that.height = Math.random() * 6 - 3; // particle height
+  createParticle() {
+    const that = {}
+    that.posX = this.mWidth / 2 // position X
+    that.posY = this.mHeight / 8 // position Y
+    that.vx = Math.random() * 10 - 5 // velocity X
+    that.vy = Math.random() * 10 - 5 // velocity Y
+    that.width = 1 // particle width
+    that.height = Math.random() * 6 - 3 // particle height
 
-      this.mParticleIndex++
-      this.mParticles[this.mParticleIndex] = that
-      that.id = this.mParticleIndex
+    this.mParticleIndex++
+    this.mParticles[this.mParticleIndex] = that
+    that.id = this.mParticleIndex
 
-      that.life = 0;
-      that.death = 140;
+    that.life = 0
+    that.death = 140
 
-      // random color
-      that.colors = [
-        "rgba(100, 100, 100," + (Math.random() + .5) + ")",
-        "rgba(52, 152, 200," + (Math.random() + .5) + ")",
-        "rgba(41, 128, 250," + (Math.random() + .5) + ")"];
-      that.color = that.colors[Math.floor(Math.random() * 3)];
-    },
+    // random color
+    that.colors = [
+      'rgba(100, 100, 100,' + (Math.random() + 0.5) + ')',
+      'rgba(52, 152, 200,' + (Math.random() + 0.5) + ')',
+      'rgba(41, 128, 250,' + (Math.random() + 0.5) + ')'
+    ]
+    that.color = that.colors[Math.floor(Math.random() * 3)]
+  },
 
-    drawParticleCanvas(target) {
-      const gravity = 0.7
-      target.posX += target.vx;
-      target.posY += target.vy;
+  drawParticleCanvas(target) {
+    const gravity = 0.7
+    target.posX += target.vx
+    target.posY += target.vy
 
-      target.life++;
+    target.life++
 
-      if (target.life >= target.death) {
-        delete this.mParticles[target.id];
-      }
-      if (target.posY > (this.mCanvas.height - 5)) {
-        target.vx *= 0.8;
-        target.vy *= -0.5;
-        target.posY = (this.mCanvas.height - 5);
-      }
-
-      target.vy += gravity;
-
-      this.mContext.fillStyle = target.color;
-      this.mContext.fillRect(target.posX, target.posY, target.width, target.height);
-    },
-
-    startNiceDraw() {
-      this.mCanvas = this.$element('niceCanvas')
-      this.mContext = this.mCanvas.getContext("2d")
-      // this.mCanvas.width = $device.screenWidth || 800
-      // this.mCanvas.height = $device.screenHeight || 300
-      this.mContext.fillRect(0, 0, this.mWidth, this.mHeight);
-      setInterval(() => {
-        this.mContext.fillStyle = "rgba(0, 0, 0, 0.8)";
-        this.mContext.fillRect(0, 0, this.mWidth, this.mHeight);
-        
-        for(let i = 0; i < this.mParticleNum; i++){
-          this.createParticle()
-        }
-        
-        for(let i in this.mParticles){
-          this.drawParticleCanvas(this.mParticles[i])
-        }
-      }, 1000)
+    if (target.life >= target.death) {
+      delete this.mParticles[target.id]
     }
+    if (target.posY > this.mCanvas.height - 5) {
+      target.vx *= 0.8
+      target.vy *= -0.5
+      target.posY = this.mCanvas.height - 5
+    }
+
+    target.vy += gravity
+
+    this.mContext.fillStyle = target.color
+    this.mContext.fillRect(target.posX, target.posY, target.width, target.height)
+  },
+
+  startNiceDraw() {
+    this.mCanvas = this.$element('niceCanvas')
+    this.mContext = this.mCanvas.getContext('2d')
+    // this.mCanvas.width = $device.screenWidth || 800
+    // this.mCanvas.height = $device.screenHeight || 300
+    this.mContext.fillRect(0, 0, this.mWidth, this.mHeight)
+    setInterval(() => {
+      this.mContext.fillStyle = 'rgba(0, 0, 0, 0.8)'
+      this.mContext.fillRect(0, 0, this.mWidth, this.mHeight)
+
+      for (let i = 0; i < this.mParticleNum; i++) {
+        this.createParticle()
+      }
+
+      for (let i in this.mParticles) {
+        this.drawParticleCanvas(this.mParticles[i])
+      }
+    }, 1000)
   }
+}
 </script>
 
 <style lang="less">
@@ -112,7 +110,7 @@
   .flex-box-mixins(column, center, center);
   width: 100%;
   height: 300px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   .nice-canvas {
     width: 100%;
     height: 300px;

@@ -8,7 +8,7 @@
 
 <div align="center">
   <image src="https://raw.githubusercontent.com/nicejade/nicelinks-quick-app/master/src/assets/images/nicelinks-qrcode.png" width="300" alt="倾城之链" />
-  <p>您可使用<code>快应用调试器</code>扫如上二维码，即可在手机端体验。</p>
+  <p>您可使用<code><a href="https://github.com/nicejade/awesome-quickapp#调试器下载">快应用调试器</a></code>扫如上二维码，即可在手机端体验。</p>
 </div>
 
 ## 目标与哲学

@@ -3,7 +3,7 @@
     <div>
       <input if="{{home}}" class="title-bar-button menu" type="button" @click='onShowCustomMenu' />
       <input else class="title-bar-button back" type="button" @click='onRoutePageBack' />
-      <text class="title-bar-title">{{title}}</text>
+      <text class="title-bar-title" @click='onTitleClick'>{{title}}</text>
     </div>
     <div>
       <slot></slot>
@@ -18,11 +18,15 @@ export default {
   data: {},
   props: ['home', 'title'],
   onInit() {},
+  /* -------------------SelfCustomEvent------------------ */
   onRoutePageBack() {
     router.back()
   },
   onShowCustomMenu() {
     this.$emit('menuClick', {})
+  },
+  onTitleClick() {
+    this.$emit('titleClick', {})
   },
   onShowSystemMenu() {
     this.$app.$def.showMenu()
@@ -53,8 +57,8 @@ export default {
 
   .title-bar-button {
     align-self: center;
-    width: 6 * @size-factor;
-    height: 6 * @size-factor;
+    width: 6.6 * @size-factor;
+    height: 6.6 * @size-factor;
     margin: 0 @size-factor;
   }
 

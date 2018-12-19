@@ -1,8 +1,9 @@
 <template>
   <div class="home-page">
-    <TitleBar home=true @menu-click="onMenuClick" title="倾城之链">
+    <TitleBar home=true @menu-click="handleMenuClick" @title-click="handleTitleClick" title="倾城之链">
       <!-- <input class="title-bar-button search" type="button" @click='onSearchClick' /> -->
-      <input class="title-bar-button share" type="button" @click='onShareClick' />
+      <!-- <input class="title-bar-button share" type="button" @click='onShareClick' /> -->
+      <input class="title-bar-button home" type="button" @click='onHomeClick' />
     </TitleBar>
     <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
@@ -80,17 +81,23 @@ export default {
     }
     const tempArray = JSON.parse(JSON.stringify(this.tabBarList))
     tempArray.forEach(item => {
-      item.classify = classifyMapping[response.detail.classify] || -1
+      item.classify = classifyMapping[response.detail.classify] || ''
     })
     this.tabBarList = tempArray
     this.isShowTabContent = true
   },
   onWatchCurrentIndex(newValue, oldValue) {},
+  onHomeClick() {
+    $utils.route2theUrl('/pages/Main')
+  },
   onShareClick() {
     $utils.call3thPartyShare()
   },
-  onMenuClick() {
+  handleMenuClick() {
     this.isShowSidebar = true
+  },
+  handleTitleClick() {
+    $utils.route2nicelinks()
   },
   onChangeTabIndex(evt) {
     this.$broadcast('changeTab')
@@ -122,6 +129,9 @@ export default {
   .share {
     background-image: url('./../../assets/icons/share.png');
   }
+  .home {
+    background-image: url('./../../assets/icons/home.png');
+  }
   .tab-bar {
     height: @tab-bar-height;
     background-color: #ffffff;
@@ -152,7 +162,7 @@ export default {
       .line {
         height: 4px;
         width: 50%;
-        background-color: @grey-black;
+        background-color: @brand;
       }
     }
   }

@@ -82,7 +82,7 @@ export default {
     this.hideSidebar()
   },
   onTitleBtnClick() {
-    this.hideSidebar({ classify: '' })
+    this.hideSidebar({ classify: 'all' })
   },
   onItemClick(item) {
     if ($utils.isLegalUrl(item.path)) {

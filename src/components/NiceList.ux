@@ -42,6 +42,7 @@
 
 <script>
 import $config from './../config'
+import marked from 'marked'
 
 export default {
   data: {
@@ -64,9 +65,12 @@ export default {
   },
   onShareClick() {
     const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+    const summary = marked(this.pdata.review || this.pdata.desc, {
+      sanitize: true
+    }).replace(/<(.|\n)*?>/g, '')
     const params = {
       title: this.pdata.title,
-      summary: `${this.pdata.desc} 来自#倾城之链#「快应用」`,
+      summary: `${summary} 来自#倾城之链#「快应用」`,
       targetUrl: targetUrl
     }
     $utils.call3thPartyShare(params)
@@ -80,7 +84,10 @@ export default {
     return global.$utils.dateOffset(datetime)
   },
   getDescContent(pdata) {
-    return global.$utils.interceptString(pdata.abstract || pdata.desc)
+    const summary = marked(pdata.review || this.pdata.desc, {
+      sanitize: true
+    }).replace(/<(.|\n)*?>/g, '')
+    return global.$utils.interceptString(summary || pdata.desc)
   },
   getClassifyPath(pdata) {
     return `https://nicelinks.site/theme/${pdata.classify}?utm_source=quickapp`

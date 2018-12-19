@@ -37,9 +37,6 @@
       "pages/Main": {
         "component": "index"
       },
-      "pages/NiceDetail": {
-        "component": "index"
-      },
       "pages/About": {
         "component": "index"
       },

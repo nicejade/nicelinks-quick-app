@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "global": "^4.3.2",
+    "marked": "^0.5.2",
     "md5": "^2.2.1"
   },
   "devDependencies": {

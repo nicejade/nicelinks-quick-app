@@ -67,7 +67,7 @@ export default {
     APP_STATISTICS.page_hide(this)
   },
   createShortcut() {
-    this.$app.$def.createShortcut()
+    $utils.createShortcut()
   }
 }
 </script>

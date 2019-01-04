@@ -41,7 +41,7 @@ function call3thPartyShare(params = {}) {
     title: params.title || '倾城之链「快应用」',
     summary: params.summary || $constant.SITE_DESC,
     imagePath: params.imagePath || '/assets/images/logo.png',
-    targetUrl: params.targetUrl || 'https://nicelinks.site',
+    targetUrl: params.targetUrl || 'https://nicelinks.site?utm_source=ux-share',
     platforms: ['SYSTEM'],
     success: function(data) {
       prompt.showToast({

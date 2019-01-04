@@ -1,13 +1,13 @@
 <template>
   <div class="title-bar-area">
     <div>
-      <input if="{{home}}" class="title-bar-button menu" type="button" @click='onShowCustomMenu' />
-      <input else class="title-bar-button back" type="button" @click='onRoutePageBack' />
+      <input if="{{home}}" class="title-bar-button menu-btn" type="button" @click='onShowCustomMenu' />
+      <input else class="title-bar-button back-btn" type="button" @click='onRoutePageBack' />
       <text class="title-bar-title" @click='onTitleClick'>{{title}}</text>
     </div>
     <div>
       <slot></slot>
-      <input if="{{home}}" class="title-bar-button more" type="button" @click='onShowSystemMenu' />
+      <input if="{{home}}" class="title-bar-button more-btn" type="button" @click='onShowSystemMenu' />
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
     this.$emit('titleClick', {})
   },
   onShowSystemMenu() {
-    this.$app.$def.showMenu()
+    $utils.showMenu()
   }
 }
 </script>
@@ -42,12 +42,11 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: @white-grey;
+  background-color: @tab-bar-color;
   color: @ink-black;
   width: 100%;
   height: 20 * @size-factor;
   padding: 10px 20px;
-
   .title-bar-title {
     color: @ink-black;
     margin-left: 24px;
@@ -55,28 +54,19 @@ export default {
     line-height: 20 * @size-factor;
   }
 
-  .title-bar-button {
-    align-self: center;
+  .menu-btn {
     width: 6.6 * @size-factor;
     height: 6.6 * @size-factor;
-    margin: 0 @size-factor;
-  }
-
-  .title-bar-button:active {
-    height: 7 * @size-factor;
-  }
-
-  .menu {
-    width: 6.6 * @size-factor;
-    height: 6.6 * @size-factor;
+    margin-left: 0;
     background-image: url('./../../assets/icons/menu.png');
   }
 
-  .more {
+  .more-btn {
     background-image: url('./../../assets/icons/more.png');
   }
 
-  .back {
+  .back-btn {
+    margin-left: 0;
     background-image: url('./../../assets/icons/back.png');
   }
 }

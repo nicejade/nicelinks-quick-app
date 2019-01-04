@@ -114,7 +114,7 @@ export default {
   .app-desc {
     margin-top: 2 * @size-factor;
   }
-  .btn-area{
+  .btn-area {
     .flex-box-mixins(row, space-between, center);
     .margin {
       margin-left: 2 * @size-factor;

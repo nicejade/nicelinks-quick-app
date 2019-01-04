@@ -64,7 +64,7 @@ export default {
     $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
   },
   onShareClick() {
-    const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+    const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=ux-share`
     const summary = marked(this.pdata.review || this.pdata.desc, {
       sanitize: true
     }).replace(/<(.|\n)*?>/g, '')

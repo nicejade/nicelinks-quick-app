@@ -2,9 +2,15 @@
   "name": "nicelinks-quick-app",
   "version": "2.2.0",
   "subversion": {
-    "toolkit": "0.0.37"
+    "toolkit": "0.1.1"
   },
-  "description": "",
+  "description": "🌪Awesome NICE LINKS（倾城之链)  client built with quickapp（快应用）",
+  "keywords": [
+    "快应用",
+    "倾城之链"
+  ],
+  "author": "nicejade",
+  "license": "MIT",
   "scripts": {
     "start": "concurrently \"node ./command/server.js\" \"npm run watch\"",
     "server": "hap server",
@@ -16,41 +22,23 @@
     "dpreview": "./command/dpreview.sh",
     "precommit-msg": "echo '🚧 Pre-commit checks...' && exit 0",
     "prettier": "prettier --write 'src/**/*.js' 'src/**/*.ux'",
-    "prettier-watch": "onchange '**/*.md' -- prettier --write {{changed}}"
+    "prettier-watch": "onchange '**/*.md' 'src/**/*.js' 'src/**/*.ux' -- prettier --write {{changed}}"
   },
   "dependencies": {
-    "global": "^4.3.2",
-    "marked": "^0.5.2",
-    "md5": "^2.2.1"
+    "babel-runtime": "^6.26.0",
+    "marked": "^0.5.2"
   },
   "devDependencies": {
     "address": "^1.0.3",
-    "babel-cli": "^6.10.1",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-preset-stage-3": "^6.24.1",
     "concurrently": "^4.0.1",
-    "cross-env": "^5.1.4",
-    "css-what": "^2.1.0",
-    "hap-toolkit": "0.0.37",
-    "husky": "^1.0.0",
-    "koa": "^2.3.0",
-    "koa-body": "^2.5.0",
-    "koa-router": "^7.2.1",
-    "koa-send": "^4.1.1",
-    "koa-static": "^4.0.1",
+    "hap-toolkit": "0.1.1",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "lint-staged": "^7.3.0",
-    "npm": "^6.5.0",
     "opn": "^5.3.0",
     "portfinder": "^1.0.17",
     "prettier": "^1.14.3",
-    "prettier-plugin-ux": "^0.0.1",
-    "socket.io": "^2.1.0",
-    "webpack": "^3.11.0"
+    "prettier-plugin-ux": "^0.0.1"
   },
   "prettier": {
     "singleQuote": true,
@@ -64,7 +52,7 @@
     }
   },
   "lint-staged": {
-    "**/**.{js,json,pcss,md,vue}": [
+    "**/**.{ux,js,json,pcss,md,vue}": [
       "prettier --write",
       "git add"
     ]

@@ -118,12 +118,33 @@ export default {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 5 * @size-factor;
   padding: 3 * @size-factor;
+  .meta {
+    width: 100%;
+    white-space: nowrap;
+    margin-bottom: 2 * @size-factor;
+    .item {
+      color: @silver-grey;
+    }
+    .classify {
+      color: @brand;
+    }
+    .username {
+      color: @silver-grey;
+    }
+    .datetime {
+      color: @silver-grey;
+      margin-right: 3 * @size-factor;
+    }
+    .tag {
+      color: @silver-grey;
+    }
+  }
   .title {
     font-size: 5 * @size-factor;
     color: @ink-black;
     font-weight: bold;
     text-align: left;
-    margin-bottom: 3 * @size-factor;
+    margin-bottom: 2 * @size-factor;
     &:hover {
       color: @brand;
     }
@@ -137,27 +158,6 @@ export default {
 .separator {
   color: @black-grey;
   margin: 0 @size-factor;
-}
-.meta {
-  width: 100%;
-  white-space: nowrap;
-  margin-bottom: 3 * @size-factor;
-  .item {
-    color: @silver-grey;
-  }
-  .classify {
-    color: @brand;
-  }
-  .username {
-    color: @silver-grey;
-  }
-  .datetime {
-    color: @silver-grey;
-    margin-right: 3 * @size-factor;
-  }
-  .tag {
-    color: @silver-grey;
-  }
 }
 .operate-area {
   .action-area {

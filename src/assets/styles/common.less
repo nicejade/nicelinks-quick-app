@@ -5,10 +5,8 @@
   }
   .title {
     color: @black;
-    font-size: 6 * @size-factor;
     font-weight: bold;
     text-align: center;
-    margin-top: 5 * @size-factor;
   }
   .desc {
     color: @grey-black;
@@ -41,5 +39,20 @@
   margin-left: 5 * @size-factor;
   :active {
     height: 7 * @size-factor;
+  }
+}
+
+.nice-list {
+  background-color: @white-grey;
+  padding: 0 3 * @size-factor;
+  .load-more {
+    .flex-box-mixins(row, center, center);
+    margin-bottom: 2 * @size-factor;
+    .progress {
+      text-align: right;
+    }
+    .loading-tip {
+      text-align: center;
+    }
   }
 }

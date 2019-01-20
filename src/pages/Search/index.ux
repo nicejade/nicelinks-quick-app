@@ -1,0 +1,138 @@
+<template>
+  <div class="page-wrapper search-page">
+    <Loading if="{{ isLoading }}" />
+    <div class="search-form">
+      <input
+        type="text" value='{{ queryString }}'
+        id="keyword" class='keyword'
+        placeholder="搜您想要"
+        enterkeytype='search'
+        @enterkeyclick='search' @change='onUpdateKeyword'
+      />
+      <input type="button" value='搜索' class='button' @click='onSearchBtnClick'>
+    </div>
+    <list class="nice-list" onscrollbottom="handleScrollBottom">
+      <block for="{{ niceLinksList }}">
+        <NiceList pdata="{{ $item }}"></NiceList>
+      </block>
+      <list-item type="loadMore" class="load-more">
+        <progress class="progress" type="circular" if="isLoadMore"></progress>
+        <text class="loading-tip" if="isLoadMore">正在加载更多</text>
+        <text class="no-more-tip" if="!isLoadMore">--- 嘿，云集美好，我是有底线的---</text>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<import name="NiceList" src="./../../components/NiceList"></import>
+<import name="Loading" src="./../../components/Loading"></import>
+
+<script>
+export default {
+  private: {
+    niceLinksList: [],
+    randomLinkList: [],
+    queryString: '',
+    isLoading: false
+  },
+  protected: {
+  },
+
+  onInit() {
+    this.getRandomLinkList()
+  },
+
+  onReady() {
+    this.$element('keyword').focus({focus: true})
+  },
+
+  onShow() {
+    APP_STATISTICS.page_show(this)
+  },
+
+  onHide() {
+    APP_STATISTICS.page_hide(this)
+  },
+
+  // (监听菜单按钮动作)当用户点击菜单按钮时触发
+  onMenuPress() {
+    $utils.showMenu()
+  },
+
+  /* -------------------SelfCustomEvent------------------ */
+  handleScrollBottom() {},
+
+  getRandomLinkList() {
+    this.isLoading = true
+    $apis.links.getRandomLinks().then(result => {
+      this.niceLinksList = result
+      this.randomLinkList = JSON.parse(JSON.stringify(result))
+    }).catch(error => {
+      $utils.promptMessage(error)
+    }).finally(() => {
+      this.isLoading = false
+    })
+  },
+
+  searchLinkList() {
+    if (!this.queryString || this.queryString.trim() === '') {
+      return $utils.promptMessage('请输入您想搜索的关键字')
+    }
+    const params = {
+      keyword: this.queryString
+    }
+    this.isLoading = true
+    $apis.links.searchNiceLinks(params).then(result => {
+      if (result && result.length) {
+        return this.niceLinksList = result
+      }
+      $utils.promptMessage('未检索到您想搜索的内容，~(>_<)~')
+      this.niceLinksList = this.randomLinkList
+    }).catch(error => {
+      $utils.promptMessage(error)
+    }).finally(() => {
+      this.isLoading = false
+    })
+  },
+
+  onUpdateKeyword($ev) {
+    this.queryString = $ev.value
+    this.searchLinkList()
+  },
+
+  onSearchBtnClick() {
+    this.searchLinkList()
+  }
+}
+</script>
+
+<style lang="less">
+@import './../../assets/styles/style.less';
+.search-page{
+  .flex-box-mixins(column, center, center);
+  .search-form {
+    width: 100%;
+    background-color: @tab-bar-color;
+    .flex-box-mixins(row, center, center);
+    padding: 3 * @size-factor 3 * @size-factor;
+    .keyword {
+      flex-grow: 1;
+      /* border-bottom-width: 1px;
+      border-bottom-color: @border-grey; */
+    }
+    .button {
+      margin: 0;
+      margin-left: 10px;
+      padding: 1 * @size-factor 2 * @size-factor;
+    }
+  }
+}
+.page-wrapper {
+  .nice-list{
+    .title {
+      margin-top: 0 * @size-factor;
+      margin-bottom: 0 * @size-factor;
+    }
+  }
+}
+</style>

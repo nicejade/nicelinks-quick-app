@@ -1,7 +1,8 @@
 <template>
   <div class="home-page">
+    <Loading if="{{ isLoading }}" />
     <TitleBar home=true @menu-click="handleMenuClick" @title-click="handleTitleClick" title="倾城之链">
-      <!-- <input class="title-bar-button search" type="button" @click='onSearchClick' /> -->
+      <input class="title-bar-button search" type="button" @click='onSearchClick' />
       <input type="button" class="title-bar-button share-btn" @click='onShareClick' />
       <input type="button" class="title-bar-button home-btn" @click='onHomeClick' />
     </TitleBar>
@@ -12,9 +13,11 @@
           <div if="index===currentIndex" class="line"></div>
         </stack>
       </tab-bar>
-      <tab-content class="tab-content" if="isShowTabContent">
-        <div class="tab-content-section" for="(index, $item) in tabBarList">
-          <TabItem pdata="{{$item}}" if="index===currentIndex"></TabItem>
+      <tab-content if="isShowTabContent">
+        <div for="(index, $item) in tabBarList">
+          <TabItem pdata="{{$item}}"
+            @update-callback="onUpdateCallback"
+            if="index===currentIndex" />
         </div>
       </tab-content>
     </tabs>
@@ -26,12 +29,15 @@
 
 <import name="TitleBar" src="./../../components/TitleBar"></import>
 <import name="Sidebar" src="./../../components/Sidebar"></import>
+<import name="TabItem" src="./../../components/TabItem"></import>
+<import name="Loading" src="./../../components/Loading"></import>
 
 <script>
 import prompt from '@system.prompt'
 export default {
   private: {
     currentIndex: 0,
+    isLoading: false,
     tabBarList: [
       {
         name: '热门',
@@ -70,6 +76,8 @@ export default {
     // $utils.promptMessage(JSON.stringify(response, null, 2))
     if (!response.detail || response.detail.classify === undefined) return
 
+    this.isLoading = true
+
     this.isShowTabContent = false
     const classifyMapping = {
       skill: '0',
@@ -84,7 +92,13 @@ export default {
     this.tabBarList = tempArray
     this.isShowTabContent = true
   },
+  onUpdateCallback() {
+    this.isLoading = false
+  },
   onWatchCurrentIndex(newValue, oldValue) {},
+  onSearchClick() {
+    $utils.route2theUrl('/pages/Search')
+  },
   onHomeClick() {
     $utils.route2theUrl('/pages/Main')
   },
@@ -103,8 +117,6 @@ export default {
   }
 }
 </script>
-
-<import name="TabItem" src="./../../components/TabItem"></import>
 
 <style lang="less">
 @import './../../assets/styles/style.less';

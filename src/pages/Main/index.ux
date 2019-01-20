@@ -64,7 +64,7 @@ export default {
      * @desc: 调用 API：global.$apis || this.$app._def.$apis (前者更简洁);
      */
     const params = { active: true }
-    global.$apis.links
+    $apis.links
       .getAllLinksCount(params)
       .then(result => {
         this.totalLinksCount = result

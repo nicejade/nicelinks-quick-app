@@ -7,5 +7,11 @@ export default {
   },
   getNiceLinks(data) {
     return $ajax.get($utils.composeApiPath('getNiceLinks'), data)
+  },
+  searchNiceLinks (data) {
+    return $ajax.get($utils.composeApiPath('searchNiceLinks'), data)
+  },
+  getRandomLinks (data) {
+    return $ajax.get($utils.composeApiPath('getRandomLinks'), data)
   }
 }

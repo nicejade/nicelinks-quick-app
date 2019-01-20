@@ -66,25 +66,9 @@ export default {
         $utils.promptMessage(error)
         this.niceLinksList = await $storage.get(linksStorageKey)
         this.isLoadMore = false
+      }).finally(() => {
+        this.$emit('updateCallback', true)
       })
   }
 }
 </script>
-
-<style lang="less">
-@import './../assets/styles/style.less';
-.nice-list {
-  background-color: @white-grey;
-  padding: 0 3 * @size-factor;
-  .load-more {
-    .flex-box-mixins(row, center, center);
-    margin-bottom: 2 * @size-factor;
-    .progress {
-      text-align: right;
-    }
-    .loading-tip {
-      text-align: center;
-    }
-  }
-}
-</style>

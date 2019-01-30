@@ -34,7 +34,7 @@ export default {
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
   }
-  @keyframes rotate{
+  @keyframes rotate {
     from {
       transform: rotate(0deg);
     }

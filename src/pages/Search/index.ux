@@ -35,15 +35,14 @@ export default {
     queryString: '',
     isLoading: false
   },
-  protected: {
-  },
+  protected: {},
 
   onInit() {
     this.getRandomLinkList()
   },
 
   onReady() {
-    this.$element('keyword').focus({focus: true})
+    this.$element('keyword').focus({ focus: true })
   },
 
   onShow() {
@@ -64,14 +63,18 @@ export default {
 
   getRandomLinkList() {
     this.isLoading = true
-    $apis.links.getRandomLinks().then(result => {
-      this.niceLinksList = result
-      this.randomLinkList = JSON.parse(JSON.stringify(result))
-    }).catch(error => {
-      $utils.promptMessage(error)
-    }).finally(() => {
-      this.isLoading = false
-    })
+    $apis.links
+      .getRandomLinks()
+      .then(result => {
+        this.niceLinksList = result
+        this.randomLinkList = JSON.parse(JSON.stringify(result))
+      })
+      .catch(error => {
+        $utils.promptMessage(error)
+      })
+      .finally(() => {
+        this.isLoading = false
+      })
   },
 
   searchLinkList() {
@@ -82,17 +85,21 @@ export default {
       keyword: this.queryString
     }
     this.isLoading = true
-    $apis.links.searchNiceLinks(params).then(result => {
-      if (result && result.length) {
-        return this.niceLinksList = result
-      }
-      $utils.promptMessage('未检索到您想搜索的内容，~(>_<)~')
-      this.niceLinksList = this.randomLinkList
-    }).catch(error => {
-      $utils.promptMessage(error)
-    }).finally(() => {
-      this.isLoading = false
-    })
+    $apis.links
+      .searchNiceLinks(params)
+      .then(result => {
+        if (result && result.length) {
+          return (this.niceLinksList = result)
+        }
+        $utils.promptMessage('未检索到您想搜索的内容，~(>_<)~')
+        this.niceLinksList = this.randomLinkList
+      })
+      .catch(error => {
+        $utils.promptMessage(error)
+      })
+      .finally(() => {
+        this.isLoading = false
+      })
   },
 
   onUpdateKeyword($ev) {
@@ -108,7 +115,7 @@ export default {
 
 <style lang="less">
 @import './../../assets/styles/style.less';
-.search-page{
+.search-page {
   .flex-box-mixins(column, center, center);
   .search-form {
     width: 100%;
@@ -128,7 +135,7 @@ export default {
   }
 }
 .page-wrapper {
-  .nice-list{
+  .nice-list {
     .title {
       margin-top: 0 * @size-factor;
       margin-bottom: 0 * @size-factor;

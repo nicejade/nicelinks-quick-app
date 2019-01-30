@@ -21,7 +21,7 @@
     "release": "hap release",
     "dpreview": "./command/dpreview.sh",
     "precommit-msg": "echo '🚧 Pre-commit checks...' && exit 0",
-    "prettier": "prettier --write 'src/**/*.js' 'src/**/*.ux'",
+    "prettier": "node ./command/selfCloseInputTag.js && prettier --write 'src/**/*.js' 'src/**/*.ux'",
     "prettier-watch": "onchange '**/*.md' 'src/**/*.js' 'src/**/*.ux' -- prettier --write {{changed}}"
   },
   "dependencies": {

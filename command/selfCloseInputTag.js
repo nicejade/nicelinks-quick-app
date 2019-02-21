@@ -1,6 +1,6 @@
 /**
- * @file: selfClose.js
- * @desc: 遍历指定目录下 .ux 文件，将其中 input 标签由 <input></input> 转换为 <input>
+ * @file: selfCloseInputTag.js
+ * @desc: 遍历指定目录下 .ux 文件，将其中 input 标签由 <input **></input> 转换为 <input ** />
  * @date: 2019-01-23
  */
 

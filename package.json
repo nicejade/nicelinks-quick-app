@@ -25,7 +25,7 @@
     "prettier-watch": "onchange '**/*.md' 'src/**/*.js' 'src/**/*.ux' -- prettier --write {{changed}}"
   },
   "dependencies": {
-    "marked": "^0.5.2"
+    "marked": "^0.6.1"
   },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.8.3",

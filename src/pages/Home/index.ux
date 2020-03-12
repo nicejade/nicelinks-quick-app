@@ -124,6 +124,7 @@ export default {
 .home-page {
   flex: 1;
   flex-direction: column;
+  background-color: @white-grey;
   .search {
     background-image: url('./../../assets/icons/search.png');
   }

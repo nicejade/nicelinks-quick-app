@@ -67,7 +67,7 @@ export default {
     this.mContext.globalCompositeOperation = 'lighter'
     tim = new Date().getTime() / 10
     const colorStr = colorRandomList[this.randomIndex].join(',')
-    this.mContext.strokeStyle = this.mContext.fillStyle = `hsla(${colorStr})`
+    this.mContext.strokeStyle = this.mContext.fillStyle = `rgba(${colorStr})`
 
     bai = 0.6 + Math.sin(tim / 5) * 0.2
     hei = 0.9 + Math.sin(tim / 100) * 0.3

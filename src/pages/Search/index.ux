@@ -119,7 +119,7 @@ export default {
   .flex-box-mixins(column, center, center);
   .search-form {
     width: 100%;
-    background-color: @tab-bar-color;
+    background-color: @white-grey;
     .flex-box-mixins(row, center, center);
     padding: 3 * @size-factor 3 * @size-factor;
     .keyword {

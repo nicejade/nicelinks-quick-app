@@ -6,16 +6,19 @@
       <text class="keywords" v-if="niceLinksItem.keywords">{{ niceLinksItem.keywords }}</text>
       <text class="mp-space desc">{{ niceLinksItem.desc }}</text>
       <richtext type="html" class="mp-space review">{{ reviewNodeStr }}</richtext>
-      <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap" />
+      <div class="btn-group">
+        <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap"></input>
+      </div>
+      <text class="sentence-title">箴言锦语</text>
+      <AwesomeSentence></AwesomeSentence>
     </div>
-    <!-- <text class="title">箴言锦语</text> -->
   </div>
 </template>
 
-<import name="PlaceholderLoading" src="./../../components/PlaceholderLoading"></import>
+<!-- <import name="PlaceholderLoading" src="./../../components/PlaceholderLoading"></import> -->
+<import name="AwesomeSentence" src="./../../components/AwesomeSentence"></import>
 
 <script>
-import clipboard from '@system.clipboard'
 export default {
   protected: {
     linkId: ''
@@ -42,37 +45,24 @@ export default {
     const params = {
       _id: this.linkId
     }
-    // this.isRequestDataFlag = true
+    this.isRequestDataFlag = true
     $apis.links
       .getNiceLinks(params)
       .then(result => {
         this.reviewNodeStr = $utils.parseMarkdown(result[0].review)
         this.niceLinksItem = result[0]
-        console.log(this.niceLinksItem)
-        // this.updatePageTitle()
       })
       .catch(error => {
         console.log(error)
       })
       .finally(() => {
-        // this.isRequestDataFlag = false
+        this.isRequestDataFlag = false
       })
-  },
-  copy2clipboard(str) {
-    clipboard.set({
-      text: str,
-      success: function(data) {
-        $utils.promptMessage('👏 已成功将链接拷贝至剪切板')
-      },
-      fail: function(data, code) {
-        $utils.promptMessage('😅 拷贝至剪切板失败')
-      }
-    })
   },
   /* -------------------OnClickEvent--------------- */
   onKnowMoreTap(item) {
     const path = `https://nicelinks.site/post/${this.linkId}`
-    this.copy2clipboard(path)
+    $utils.copy2clipboard(path, '👏 已成功将链接拷贝至剪切板')
   }
 }
 </script>
@@ -82,18 +72,19 @@ export default {
 .wrapper {
   backdrop-filter: blur(15px);
   background-color: rgba(255, 255, 255, 0.618);
-  padding: 0 3 * @size-factor 3 * @size-factor 3 * @size-factor;
+  padding: 3 * @size-factor;
 }
 .mp-space {
   margin-top: 2 * @size-factor;
 }
 .content {
   .flex-box-mixins(column, top, left);
-  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
   background-color: @white;
+  .sentence-title,
   .title {
     text-align: left;
-    margin-top: 4 * @size-factor;
     overflow: hidden;
     font-size: 5 * @size-factor;
     white-space: nowrap;
@@ -101,6 +92,9 @@ export default {
     font-weight: 600;
     text-decoration: none;
     color: @ink-black;
+  }
+  .sentence-title {
+    padding: 3 * @size-factor;
   }
   .desc {
     font-size: 4.5 * @size-factor;
@@ -112,12 +106,15 @@ export default {
   .review {
     width: 100%;
     color: @black-grey;
-    font-size: 3 * @size-factor;
-  }
-  .copy-button {
-    width: 40 * @size-factor;
-    margin: auto;
+    font-size: 4.5 * @size-factor;
     margin-top: 2 * @size-factor;
+  }
+  .btn-group {
+    width: 100%;
+    .flex-box-mixins(row, center, center);
+    .copy-button {
+      width: 40 * @size-factor;
+    }
   }
 }
 </style>

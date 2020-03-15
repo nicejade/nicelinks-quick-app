@@ -13,5 +13,11 @@ export default {
   },
   getRandomLinks(data) {
     return $ajax.get($utils.composeApiPath('getRandomLinks'), data)
+  },
+  getSysConf(data) {
+    return $ajax.get($utils.composeApiPath('getSysConf'), data)
+  },
+  getRandomSentence() {
+    return $ajax.post($utils.composeApiPath('getRandomSentence'))
   }
 }

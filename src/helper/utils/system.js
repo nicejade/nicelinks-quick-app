@@ -1,6 +1,7 @@
 const prompt = require('@system.prompt')
 const router = require('@system.router')
 const share = require('@service.share')
+const clipboard = require('@system.clipboard')
 
 /**
  * @desc 创建桌面图标
@@ -102,6 +103,18 @@ export default {
     if (!message) return
     prompt.showToast({
       message: message
+    })
+  },
+
+  copy2clipboard(str, promptStr = '👏 已成功拷贝至剪切板') {
+    clipboard.set({
+      text: str,
+      success: function(data) {
+        $utils.promptMessage(promptStr)
+      },
+      fail: function(data, code) {
+        $utils.promptMessage('😅 拷贝至剪切板失败')
+      }
     })
   },
 

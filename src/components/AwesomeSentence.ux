@@ -1,0 +1,144 @@
+<template>
+  <div id="awesome-sentence" class="awesome-sentence">
+    <div class="lined-paper" v-show="currentSentenceStr">
+      <richtext type="html" class="review">{{ currentSentenceStr }}</richtext>
+    </div>
+    <div class="btn-group">
+      <div class="common-btn" @click="onPreviousClick">
+        <div class="opt-icon previous"></div>
+      </div>
+      <!-- <div class="common-btn" :class="btnClassName" @click="onRandomClick"> -->
+      <div class="common-btn" @click="onRandomClick">
+        <div class="opt-icon random"></div>
+      </div>
+      <div class="common-btn" @click="onCopy2ClipboardClick">
+        <div class="opt-icon copy"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isLoading: false,
+      sentence: '',
+      isCanLookBack: false,
+      currentSentenceStr: '',
+      lastSentenceStr: '',
+      currentSentence: {}
+    }
+  },
+
+  computed: {
+    currentSentenceStr() {
+      return $utils.parseMarkdown(this.currentSentence.content || this.sentence.content)
+    }
+  },
+
+  components: {},
+
+  onInit() {
+    this.$watch('sentence.content', 'watchSentenceContent')
+    $apis.links
+      .getSysConf()
+      .then(result => {
+        this.sentence = result.sentence
+      })
+      .catch(error => {
+        $utils.promptMessage(`${error}`)
+      })
+  },
+
+  mounted() {},
+
+  watchSentenceContent(val) {
+    const content = $utils.parseMarkdown(val)
+    this.currentSentenceStr = content
+    this.lastSentenceStr = content
+  },
+
+  /* ---------------------Click Event--------------------- */
+  onPreviousClick() {
+    if (!this.isCanLookBack) {
+      return $utils.promptMessage('错过，许是永恒，只可回首前一条')
+    }
+    this.currentSentenceStr = this.lastSentenceStr
+    this.isCanLookBack = false
+  },
+  onRandomClick() {
+    this.isLoading = true
+    $apis.links
+      .getRandomSentence()
+      .then(result => {
+        this.lastSentenceStr = this.currentSentenceStr
+        this.isCanLookBack = true
+        this.currentSentence = result || {}
+        this.currentSentenceStr = $utils.parseMarkdown(result.content)
+      })
+      .catch(error => {
+        $utils.promptMessage(`${error}`)
+      })
+      .finally(() => {
+        this.isLoading = false
+      })
+  },
+  onCopy2ClipboardClick() {
+    const constent = $utils.parseMarkdown(this.currentSentenceStr) + `── 倾城之链 · 箴言锦语`
+    $utils.copy2clipboard(constent, '👏  已将此条「锦语」复制到您的剪切板')
+  }
+}
+</script>
+
+<style type="text/css" lang="less" scoped>
+@import './../assets/styles/style.less';
+
+.awesome-sentence {
+  .flex-box-mixins(column, top, left);
+  .lined-paper {
+    margin: 0 auto;
+    padding: 6px 10px;
+    color: #444;
+    text-align: left;
+    background: #ffffff;
+  }
+  .btn-group {
+    margin-top: 3 * @size-factor;
+    display: flex;
+    justify-content: center;
+    .common-btn {
+      .flex-box-mixins(column, center, center);
+      width: 10 * @size-factor;
+      height: 10 * @size-factor;
+      text-align: center;
+      border: 1px solid @border-grey;
+      border-radius: 5 * @size-factor;
+      margin: 0 15px;
+      .icon {
+        width: 5 * @size-factor;
+        height: 5 * @size-factor;
+      }
+    }
+  }
+}
+.review {
+  font-size: 4 * @size-factor;
+  color: @black-grey;
+}
+.opt-icon {
+  width: 6 * @size-factor;
+  height: 6 * @size-factor;
+  background-size: 100%;
+  margin: 1 * @size-factor;
+}
+.previous {
+  background-image: url('./../assets/icons/previous.png');
+}
+.random {
+  background-image: url('./../assets/icons/random.png');
+}
+.copy {
+  background-image: url('./../assets/icons/copy.png');
+}
+</style>

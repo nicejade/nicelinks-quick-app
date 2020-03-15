@@ -2,8 +2,7 @@
   <list-item type="List">
     <div class="module" @click="onModuleClick">
       <div class="meta">
-        <a class="item classify" href="{{ getClassifyPath(pdata.createdBy) }}"
-          target="_blank" rel="noopener">
+        <a class="item classify" href="{{ getClassifyPath(pdata.createdBy) }}" target="_blank" rel="noopener">
           {{ fillThemeName(pdata.classify, pdata.theme) }}
         </a>
         <text class="separator">·</text>
@@ -14,8 +13,7 @@
           <text class="separator" if="{{$idx !== 2}}">/</text>
         </block>
       </div>
-      <a class="title" href="{{pdata.urlPath}}?utm_source=nicelinks.site"
-        target="_blank" rel="noopener">
+      <a class="title" href="javascript:;" @click="onModuleClick" rel="noopener">
         {{ pdata.title }}
       </a>
       <text class="desc">{{ getDescContent(pdata) }}</text>
@@ -29,8 +27,7 @@
           <text class="separator">分享</text>
         </div>
         <text class="separator">由</text>
-        <a class="item username" href="{{ getUserPath(pdata.createdBy) }}"
-          target="_blank" rel="noopener">
+        <a class="item username" href="{{ getUserPath(pdata.createdBy) }}" target="_blank" rel="noopener">
           {{ pdata.createdBy || '' }}
         </a>
         <text class="separator">分享于</text>
@@ -57,8 +54,11 @@ export default {
   onInit() {},
   /* -------------------OnClickEvent--------------- */
   onModuleClick() {
-    const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
-    $utils.reute2WebPage({ path: targetPath })
+    // const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
+    // $utils.reute2WebPage({ path: targetPath })
+    $utils.route2theUrl('/pages/Post', {
+      linkId: this.pdata._id
+    })
   },
   onLikeClick() {
     $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')

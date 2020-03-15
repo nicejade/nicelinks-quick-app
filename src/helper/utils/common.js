@@ -1,3 +1,5 @@
+import marked from 'marked'
+
 export default {
   setCurrentDate(date) {
     // set current Date
@@ -40,5 +42,9 @@ export default {
     } else {
       return string
     }
+  },
+
+  parseMarkdown(mdStr = '') {
+    return marked(mdStr, {})
   }
 }

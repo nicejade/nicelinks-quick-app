@@ -15,6 +15,7 @@
     { "name": "system.prompt" },
     { "name": "system.router" },
     { "name": "system.shortcut" },
+    { "name": "system.clipboard" },
     {
       "name": "service.share",
       "params": {
@@ -40,6 +41,9 @@
       "pages/About": {
         "component": "index"
       },
+      "pages/Post": {
+        "component": "index"
+      },
       "pages/WebPage": {
         "component": "index"
       },
@@ -61,6 +65,10 @@
       },
       "pages/Main": {
         "titleBarText": "倾城之链 - 主页",
+        "menu": true
+      },
+      "pages/Post": {
+        "titleBarText": "倾城之链 - 详情",
         "menu": true
       },
       "pages/NiceDetail": {

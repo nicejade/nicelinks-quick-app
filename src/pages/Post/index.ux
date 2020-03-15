@@ -1,0 +1,123 @@
+<template>
+  <div class="page-wrapper wrapper">
+    <!-- <PlaceholderLoading v-if="isRequestDataFlag"></PlaceholderLoading> -->
+    <div class="content">
+      <text class="title" @click="onTitleClick">{{ niceLinksItem.title }}</text>
+      <text class="keywords" v-if="niceLinksItem.keywords">{{ niceLinksItem.keywords }}</text>
+      <text class="mp-space desc">{{ niceLinksItem.desc }}</text>
+      <richtext type="html" class="mp-space review">{{ reviewNodeStr }}</richtext>
+      <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap" />
+    </div>
+    <!-- <text class="title">箴言锦语</text> -->
+  </div>
+</template>
+
+<import name="PlaceholderLoading" src="./../../components/PlaceholderLoading"></import>
+
+<script>
+import clipboard from '@system.clipboard'
+export default {
+  protected: {
+    linkId: ''
+  },
+  private: {
+    isRequestDataFlag: true,
+    niceLinksItem: {},
+    reviewNodeStr: '',
+    currentSentenceStr: ''
+  },
+  onInit() {
+    this.setFetchData()
+  },
+  onShow() {
+    APP_STATISTICS.page_show(this)
+  },
+  onHide() {
+    APP_STATISTICS.page_hide(this)
+  },
+  createShortcut() {
+    $utils.createShortcut()
+  },
+  setFetchData() {
+    const params = {
+      _id: this.linkId
+    }
+    // this.isRequestDataFlag = true
+    $apis.links
+      .getNiceLinks(params)
+      .then(result => {
+        this.reviewNodeStr = $utils.parseMarkdown(result[0].review)
+        this.niceLinksItem = result[0]
+        console.log(this.niceLinksItem)
+        // this.updatePageTitle()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        // this.isRequestDataFlag = false
+      })
+  },
+  copy2clipboard(str) {
+    clipboard.set({
+      text: str,
+      success: function(data) {
+        $utils.promptMessage('👏 已成功将链接拷贝至剪切板')
+      },
+      fail: function(data, code) {
+        $utils.promptMessage('😅 拷贝至剪切板失败')
+      }
+    })
+  },
+  /* -------------------OnClickEvent--------------- */
+  onKnowMoreTap(item) {
+    const path = `https://nicelinks.site/post/${this.linkId}`
+    this.copy2clipboard(path)
+  }
+}
+</script>
+
+<style type="text/css" lang="less" scoped>
+@import './../../assets/styles/style.less';
+.wrapper {
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.618);
+  padding: 0 3 * @size-factor 3 * @size-factor 3 * @size-factor;
+}
+.mp-space {
+  margin-top: 2 * @size-factor;
+}
+.content {
+  .flex-box-mixins(column, top, left);
+  width: 100%;
+  background-color: @white;
+  .title {
+    text-align: left;
+    margin-top: 4 * @size-factor;
+    overflow: hidden;
+    font-size: 5 * @size-factor;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    text-decoration: none;
+    color: @ink-black;
+  }
+  .desc {
+    font-size: 4.5 * @size-factor;
+    color: @silver-grey;
+    border-left: 2px solid #343434;
+    padding: 0 4 * @size-factor;
+  }
+  .keywords,
+  .review {
+    width: 100%;
+    color: @black-grey;
+    font-size: 3 * @size-factor;
+  }
+  .copy-button {
+    width: 40 * @size-factor;
+    margin: auto;
+    margin-top: 2 * @size-factor;
+  }
+}
+</style>

@@ -3,7 +3,6 @@
     <Loading if="{{ isLoading }}" />
     <TitleBar home=true @menu-click="handleMenuClick" @title-click="handleTitleClick" title="倾城之链">
       <input class="title-bar-button search" type="button" @click='onSearchClick' />
-      <input type="button" class="title-bar-button share-btn" @click='onShareClick' />
       <input type="button" class="title-bar-button home-btn" @click='onHomeClick' />
     </TitleBar>
     <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
@@ -64,12 +63,13 @@ export default {
     isShowSidebar: false,
     isShowTabContent: true
   },
+
   onInit() {},
+
   onShow() {},
+
   onBackPress() {},
-  onMenuPress() {
-    $utils.showMenu()
-  },
+
   /* -----------------onCallBackEvent----------------- */
   hideSidebar(response) {
     this.isShowSidebar = false
@@ -101,9 +101,6 @@ export default {
   },
   onHomeClick() {
     $utils.route2theUrl('/pages/Main')
-  },
-  onShareClick() {
-    $utils.call3thPartyShare()
   },
   handleMenuClick() {
     this.isShowSidebar = true

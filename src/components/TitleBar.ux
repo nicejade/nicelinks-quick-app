@@ -5,9 +5,8 @@
       <input else class="title-bar-button back-btn" type="button" @click='onRoutePageBack' />
       <text class="title-bar-title" @click='onTitleClick'>{{title}}</text>
     </div>
-    <div>
+    <div class="btn-area">
       <slot></slot>
-      <input if="{{home}}" class="title-bar-button more-btn" type="button" @click='onShowSystemMenu' />
     </div>
   </div>
 </template>
@@ -27,9 +26,6 @@ export default {
   },
   onTitleClick() {
     this.$emit('titleClick', {})
-  },
-  onShowSystemMenu() {
-    $utils.showMenu()
   }
 }
 </script>
@@ -45,7 +41,7 @@ export default {
   background-color: @tab-bar-color;
   color: @ink-black;
   width: 100%;
-  height: 20 * @size-factor;
+  height: 11.5 * @size-factor;
   padding: 10px 20px;
   .title-bar-title {
     color: @ink-black;
@@ -68,6 +64,10 @@ export default {
   .back-btn {
     margin-left: 0;
     background-image: url('./../../assets/icons/back.png');
+  }
+
+  .btn-area {
+    margin-right: 25 * @size-factor;
   }
 }
 </style>

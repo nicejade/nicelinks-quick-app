@@ -53,11 +53,6 @@ export default {
     APP_STATISTICS.page_hide(this)
   },
 
-  // (监听菜单按钮动作)当用户点击菜单按钮时触发
-  onMenuPress() {
-    $utils.showMenu()
-  },
-
   /* -------------------SelfCustomEvent------------------ */
   handleScrollBottom() {},
 

@@ -3,7 +3,7 @@
   "name": "倾城之链",
   "versionName": "3.0.0",
   "versionCode": "11",
-  "minPlatformVersion": "1050",
+  "minPlatformVersion": "1070",
   "icon": "/assets/images/logo.png",
   "features": [
     { "name": "system.fetch" },
@@ -57,7 +57,13 @@
     "titleBar": false,
     "titleBarBackgroundColor": "#fefefe",
     "titleBarTextColor": "#212121",
-    "menu": true,
+    "menuBarData": {
+      "menuBar" : true,
+      "menuBarStyle": "dark",
+      "shareTitle": "倾城之链",
+      "shareDescription": "倾心缔造，痴心为你。带您探索互联网更广阔的世界。",
+      "shareIcon": "https://nicelinks.site/static/img/favicons/android-chrome-192x192.png"
+    },
     "pages": {
       "pages/Home": {
         "titleBarText": "倾城之链 - NICE LINKS",

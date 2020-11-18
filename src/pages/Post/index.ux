@@ -5,9 +5,10 @@
       <text class="title" @click="onTitleClick">{{ niceLinksItem.title }}</text>
       <text class="keywords" v-if="niceLinksItem.keywords">{{ niceLinksItem.keywords }}</text>
       <text class="mp-space desc">{{ niceLinksItem.desc }}</text>
+      <image class="mp-space" src="{{ getLinkScreenshot(niceLinksItem) }}"></image>
       <richtext type="html" class="mp-space review">{{ reviewNodeStr }}</richtext>
       <div class="btn-group">
-        <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap"></input>
+        <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap" />
       </div>
       <text class="sentence-title">箴言锦语</text>
       <AwesomeSentence></AwesomeSentence>
@@ -41,6 +42,10 @@ export default {
   createShortcut() {
     $utils.createShortcut()
   },
+  getLinkScreenshot(item) {
+    const hostname = item.urlPath.replace(/^https?:\/\//, '').replace('/', '')
+    return `https://oss.nicelinks.site/${hostname}.png?x-oss-process=style/png2jpg`
+  },
   setFetchData() {
     const params = {
       _id: this.linkId
@@ -51,6 +56,7 @@ export default {
       .then(result => {
         this.reviewNodeStr = $utils.parseMarkdown(result[0].review)
         this.niceLinksItem = result[0]
+        this.updatelinkScreenshot()
       })
       .catch(error => {
         console.log(error)

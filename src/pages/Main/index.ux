@@ -1,5 +1,4 @@
-<!-- <import name="Particle" src="./../../components/Particle"></import> -->
-<import name="WaterWorld" src="./../../components/WaterWorld"></import>
+<!-- <import name="WaterWorld" src="./../../components/WaterWorld"></import> -->
 
 <template>
   <div class="page-wrapper main-page">
@@ -12,7 +11,6 @@
         <input class="button margin" type="button" onclick="onOpenWebsiteClick" value="探索美好" />
       </div>
     </div>
-    <WaterWorld></WaterWorld>
     <div class="nice-detail find-more wrapper-padding">
       <text class="title">探索更广阔的世界，为您</text>
       <text class="desc">在这个信息化的世界，海量的讯息可能让您不知所措；担心错过她而努力汲取的同时，却可能错过更多；</text>

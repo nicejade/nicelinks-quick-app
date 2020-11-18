@@ -1,0 +1,8 @@
+{
+  "rules": [
+    {
+      "rule": "enable",
+      "page": "*"
+    }
+  ]
+}

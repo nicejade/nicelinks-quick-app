@@ -22,7 +22,7 @@
     "prettier-watch": "onchange '**/*.md' 'src/**/*.js' 'src/**/*.ux' -- prettier --write {{changed}}"
   },
   "dependencies": {
-    "marked": "^0.6.1",
+    "marked": "^0.7.0",
     "md5": "^2.3.0"
   },
   "devDependencies": {

@@ -37,7 +37,7 @@ export default {
   },
 
   interceptString(string = '', length = 140) {
-    if (this.getByteLength(string) > 140) {
+    if (this.getByteLength(string) > length) {
       return string.substring(0, length) + '...'
     } else {
       return string
@@ -46,5 +46,5 @@ export default {
 
   parseMarkdown(mdStr = '') {
     return marked(mdStr, {})
-  }
+  },
 }

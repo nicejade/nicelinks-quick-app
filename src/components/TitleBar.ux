@@ -1,9 +1,9 @@
 <template>
   <div class="title-bar-area">
     <div>
-      <input if="{{home}}" class="title-bar-button menu-btn" type="button" @click='onShowCustomMenu' />
-      <input else class="title-bar-button back-btn" type="button" @click='onRoutePageBack' />
-      <text class="title-bar-title" @click='onTitleClick'>{{title}}</text>
+      <input if="{{home}}" class="title-bar-button menu-btn" type="button" @click="onShowCustomMenu" />
+      <input else class="title-bar-button back-btn" type="button" @click="onRoutePageBack" />
+      <text class="title-bar-title" @click="onTitleClick">{{ title }}</text>
     </div>
     <div class="btn-area">
       <slot></slot>
@@ -26,7 +26,7 @@ export default {
   },
   onTitleClick() {
     this.$emit('titleClick', {})
-  }
+  },
 }
 </script>
 
@@ -34,14 +34,14 @@ export default {
 @import './../assets/styles/style.less';
 
 .title-bar-area {
+  width: 100%;
+  height: 11.5 * @size-factor;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: @tab-bar-color;
   color: @ink-black;
-  width: 100%;
-  height: 11.5 * @size-factor;
   padding: 10px 20px;
   .title-bar-title {
     color: @ink-black;

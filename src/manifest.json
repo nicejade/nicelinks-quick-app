@@ -1,8 +1,8 @@
 {
   "package": "com.quickapp.nicelinks",
   "name": "倾城之链",
-  "versionName": "3.1.0",
-  "versionCode": "12",
+  "versionName": "3.4.0",
+  "versionCode": "16",
   "minPlatformVersion": "1070",
   "icon": "/assets/images/logo.png",
   "features": [

@@ -18,14 +18,15 @@ export default {
   data: {
     currentPageCount: 1,
     requestParamList: {
+      alive: 1,
       active: true,
       pageCount: 1,
       sortType: -1,
       sortTarget: 'likes',
-      pageSize: 10
+      pageSize: 10,
     },
     isLoadMore: true,
-    niceLinksList: []
+    niceLinksList: [],
   },
   props: ['pdata'],
   onInit() {
@@ -50,7 +51,7 @@ export default {
     this.requestParamList.pageCount = this.currentPageCount
     $apis.links
       .getNiceLinks(this.requestParamList)
-      .then(async result => {
+      .then(async (result) => {
         this.isLoadMore = result.length > 0
         if (this.currentPageCount === 1) {
           this.niceLinksList = result
@@ -62,7 +63,7 @@ export default {
           this.niceLinksList = this.niceLinksList.concat(result)
         }
       })
-      .catch(async error => {
+      .catch(async (error) => {
         $utils.promptMessage(error)
         this.niceLinksList = await $storage.get(linksStorageKey)
         this.isLoadMore = false
@@ -70,6 +71,6 @@ export default {
       .finally(() => {
         this.$emit('updateCallback', true)
       })
-  }
+  },
 }
 </script>

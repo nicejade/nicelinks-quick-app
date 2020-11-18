@@ -3,13 +3,15 @@
     <Loading if="{{ isLoading }}" />
     <div class="search-form">
       <input
-        type="text" value='{{ queryString }}'
-        id="keyword" class='keyword'
+        type="text"
+        value="{{ queryString }}"
+        id="keyword"
+        class="keyword"
         placeholder="搜您想要"
-        enterkeytype='search'
-        @enterkeyclick='search' @change='onUpdateKeyword'
+        enterkeytype="search"
+        @enterkeyclick="search"
+        @change="onUpdateKeyword"
       />
-      <input type="button" value='搜索' class='button' @click='onSearchBtnClick'>
     </div>
     <list class="nice-list" onscrollbottom="handleScrollBottom">
       <block for="{{ niceLinksList }}">
@@ -33,7 +35,7 @@ export default {
     niceLinksList: [],
     randomLinkList: [],
     queryString: '',
-    isLoading: false
+    isLoading: false,
   },
   protected: {},
 
@@ -60,11 +62,11 @@ export default {
     this.isLoading = true
     $apis.links
       .getRandomLinks()
-      .then(result => {
+      .then((result) => {
         this.niceLinksList = result
         this.randomLinkList = JSON.parse(JSON.stringify(result))
       })
-      .catch(error => {
+      .catch((error) => {
         $utils.promptMessage(error)
       })
       .finally(() => {
@@ -77,19 +79,19 @@ export default {
       return $utils.promptMessage('请输入您想搜索的关键字')
     }
     const params = {
-      keyword: this.queryString
+      keyword: this.queryString,
     }
     this.isLoading = true
     $apis.links
       .searchNiceLinks(params)
-      .then(result => {
+      .then((result) => {
         if (result && result.length) {
           return (this.niceLinksList = result)
         }
         $utils.promptMessage('未检索到您想搜索的内容，~(>_<)~')
         this.niceLinksList = this.randomLinkList
       })
-      .catch(error => {
+      .catch((error) => {
         $utils.promptMessage(error)
       })
       .finally(() => {
@@ -104,7 +106,7 @@ export default {
 
   onSearchBtnClick() {
     this.searchLinkList()
-  }
+  },
 }
 </script>
 

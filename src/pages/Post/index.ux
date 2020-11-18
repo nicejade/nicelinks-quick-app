@@ -22,13 +22,13 @@
 <script>
 export default {
   protected: {
-    linkId: ''
+    linkId: '',
   },
   private: {
     isRequestDataFlag: true,
     niceLinksItem: {},
     reviewNodeStr: '',
-    currentSentenceStr: ''
+    currentSentenceStr: '',
   },
   onInit() {
     this.setFetchData()
@@ -43,22 +43,26 @@ export default {
     $utils.createShortcut()
   },
   getLinkScreenshot(item) {
-    const hostname = item.urlPath.replace(/^https?:\/\//, '').replace('/', '')
-    return `https://oss.nicelinks.site/${hostname}.png?x-oss-process=style/png2jpg`
+    if (item.urlPath) {
+      const hostname = item.urlPath.replace(/^https?:\/\//, '').replace('/', '')
+      return `https://oss.nicelinks.site/${hostname}.png?x-oss-process=style/png2jpg`
+    } else {
+      return 'https://oss.nicelinks.site/nicelinks.site.png?x-oss-process=style/png2jpg'
+    }
   },
   setFetchData() {
     const params = {
-      _id: this.linkId
+      _id: this.linkId,
     }
     this.isRequestDataFlag = true
     $apis.links
       .getNiceLinks(params)
-      .then(result => {
+      .then((result) => {
         this.reviewNodeStr = $utils.parseMarkdown(result[0].review)
         this.niceLinksItem = result[0]
         this.updatelinkScreenshot()
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
       .finally(() => {
@@ -69,7 +73,7 @@ export default {
   onKnowMoreTap(item) {
     const path = `https://nicelinks.site/post/${this.linkId}`
     $utils.copy2clipboard(path, '👏 已成功将链接拷贝至剪切板')
-  }
+  },
 }
 </script>
 

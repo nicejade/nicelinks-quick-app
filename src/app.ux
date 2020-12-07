@@ -8,6 +8,10 @@ import './appStatistics.min.js'
  */
 import { $utils, $apis, $constant, $storage } from './helper'
 
+console.log(`当前 Version 是 :`, VERSION)
+console.log(`当前 Version Name 是 :`, VERSION_NAME)
+console.log(`当前 Version Code 是 :`, VERSION_CODE)
+
 /* @desc: 注入方法至全局 global,以便页面调用 */
 const hook2global = global.__proto__ || global
 hook2global.$apis = $apis
@@ -21,6 +25,6 @@ hook2global.regeneratorRuntime = require('babel-runtime/regenerator')
 export default {
   onCreate() {
     APP_STATISTICS.app_sta_init(this)
-  }
+  },
 }
 </script>

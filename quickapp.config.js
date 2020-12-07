@@ -1,4 +1,8 @@
+const webpack = require('webpack')
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+const version = require('./package.json').version
+const versionName = require('./src/manifest.json').versionName
+const versionCode = require('./src/manifest.json').versionCode
 
 module.exports = {
   cli: {
@@ -7,7 +11,9 @@ module.exports = {
   webpack: {
     plugins: [
       new webpack.DefinePlugin({
-        ENV_TYPE: process.env.NODE_ENV,
+        VERSION: JSON.stringify(version),
+        VERSION_NAME: JSON.stringify(versionName),
+        VERSION_CODE: JSON.stringify(versionCode),
       }),
       new HardSourceWebpackPlugin({
         environmentHash: {

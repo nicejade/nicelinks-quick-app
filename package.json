@@ -26,6 +26,7 @@
     "md5": "^2.3.0"
   },
   "devDependencies": {
+    "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git",
     "address": "^1.0.3",
     "concurrently": "^4.0.1",
     "hard-source-webpack-plugin": "^0.13.1",

@@ -44,12 +44,12 @@ import marked from 'marked'
 export default {
   data: {
     themeList: $config.theme,
-    likeIcon: './../assets/icons/main.svg'
+    likeIcon: './../assets/icons/main.svg',
   },
   props: [
     'pdata',
     // 驼峰式在赋值时使用-连接
-    'currentIndex'
+    'currentIndex',
   ],
   onInit() {},
   /* -------------------OnClickEvent--------------- */
@@ -57,21 +57,21 @@ export default {
     // const targetPath = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp`
     // $utils.reute2WebPage({ path: targetPath })
     $utils.route2theUrl('/pages/Post', {
-      linkId: this.pdata._id
+      linkId: this.pdata._id,
     })
   },
   onLikeClick() {
     $utils.promptMessage('登录「点赞」功能，即将推出，敬请期待')
   },
   onShareClick() {
-    const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=ux-share`
+    const targetUrl = `https://nicelinks.site/post/${this.pdata._id}?utm_source=quickapp-share`
     const summary = marked(this.pdata.review || this.pdata.desc, {
-      sanitize: true
+      sanitize: true,
     }).replace(/<(.|\n)*?>/g, '')
     const params = {
       title: this.pdata.title,
-      summary: `${summary} 来自#倾城之链#「快应用」`,
-      targetUrl: targetUrl
+      summary: `${summary}来自#倾城之链#「快应用」`,
+      targetUrl: targetUrl,
     }
     $utils.call3thPartyShare(params)
   },
@@ -85,7 +85,7 @@ export default {
   },
   getDescContent(pdata) {
     const summary = marked(pdata.review || this.pdata.desc, {
-      sanitize: true
+      sanitize: true,
     }).replace(/<(.|\n)*?>/g, '')
     return global.$utils.interceptString(summary || pdata.desc)
   },
@@ -98,13 +98,13 @@ export default {
   },
   fillThemeName(classify, theme) {
     let result = ''
-    this.themeList[classify].map(item => {
+    this.themeList[classify].map((item) => {
       if (item.value === theme) {
         result = item.key
       }
     })
     return result
-  }
+  },
 }
 </script>
 

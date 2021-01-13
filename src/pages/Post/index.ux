@@ -11,6 +11,7 @@
       <richtext type="html" class="mp-space review">{{ reviewNodeStr }}</richtext>
       <div class="btn-group">
         <input class="button margin mp-space copy-button" type="button" value="复制链接" onclick="onKnowMoreTap" />
+        <input class="button margin mp-space copy-button" type="button" value="分享链接" onclick="onShareLinkTap" />
       </div>
       <text class="sentence-title">箴言锦语</text>
       <AwesomeSentence></AwesomeSentence>
@@ -22,6 +23,7 @@
 <import name="AwesomeSentence" src="./../../components/AwesomeSentence"></import>
 
 <script>
+import marked from 'marked'
 export default {
   protected: {
     linkId: '',
@@ -79,6 +81,18 @@ export default {
     const path = `https://nicelinks.site/post/${this.linkId}`
     $utils.copy2clipboard(path, '👏 已成功将链接拷贝至剪切板')
   },
+  onShareLinkTap() {
+    const targetUrl = `https://nicelinks.site/post/${this.niceLinksItem._id}?utm_source=quickapp-share`
+    const summary = marked(this.niceLinksItem.review || this.niceLinksItem.desc, {
+      sanitize: true,
+    }).replace(/<(.|\n)*?>/g, '')
+    const params = {
+      title: this.niceLinksItem.title,
+      summary: `${summary}来自#倾城之链#「快应用」`,
+      targetUrl: targetUrl,
+    }
+    $utils.call3thPartyShare(params)
+  },
 }
 </script>
 
@@ -135,9 +149,9 @@ export default {
   }
   .btn-group {
     width: 100%;
-    .flex-box-mixins(row, center, center);
+    .flex-box-mixins(row, space-around, center);
     .copy-button {
-      width: 40 * @size-factor;
+      width: 38 * @size-factor;
     }
   }
 }

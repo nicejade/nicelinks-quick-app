@@ -44,9 +44,6 @@
       "pages/Post": {
         "component": "index"
       },
-      "pages/WebPage": {
-        "component": "index"
-      },
       "pages/Search": {
         "component": "index"
       }

@@ -37,8 +37,12 @@ export default {
   },
 
   interceptString(string = '', length = 140) {
-    if (this.getByteLength(string) > length) {
-      return string.substring(0, length) + '...'
+    const hanReg = /[\u4E00-\u9FA5]/g
+    const isHaveHan = hanReg.test(string)
+    const hacCount = isHaveHan ? string.match(hanReg).length : 0
+    const limit = length - Math.ceil(hacCount / 2)
+    if (this.getByteLength(string) > limit) {
+      return string.substring(0, limit) + '...'
     } else {
       return string
     }

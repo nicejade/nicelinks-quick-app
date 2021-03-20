@@ -72,7 +72,6 @@ export default {
       .then((result) => {
         this.reviewNodeStr = $utils.parseMarkdown(result[0].review)
         this.niceLinksItem = result[0]
-        this.updatelinkScreenshot()
       })
       .catch((error) => {
         console.log(error)
@@ -94,7 +93,7 @@ export default {
     })
   },
   dealWithTitle(titleText) {
-    return $utils.interceptString(titleText, 27)
+    return $utils.interceptString(titleText, 25)
   },
   /* -------------------OnClickEvent--------------- */
   onKnowMoreTap(item) {

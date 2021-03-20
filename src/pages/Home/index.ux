@@ -1,22 +1,20 @@
 <template>
   <div class="home-page">
     <Loading if="{{ isLoading }}" />
-    <TitleBar home=true @menu-click="handleMenuClick" @title-click="handleTitleClick" title="倾城之链">
-      <input class="title-bar-button search" type="button" @click='onSearchClick' />
-      <input type="button" class="title-bar-button home-btn" @click='onHomeClick' />
+    <TitleBar home="true" @menu-click="handleMenuClick" @title-click="handleTitleClick" title="倾城之链">
+      <input class="title-bar-button search" type="button" @click="onSearchClick" />
+      <input type="button" class="title-bar-button home-btn" @click="onHomeClick" />
     </TitleBar>
     <tabs onchange="onChangeTabIndex" index="{{currentIndex}}" if="{{isShowTabs}}">
       <tab-bar class="tab-bar" mode="scrollable">
         <stack class="tab-item-warp" for="(index, item) in tabBarList">
-          <text class="tab-item {{index===currentIndex ? 'active' : ''}}">{{item.name}}</text>
+          <text class="tab-item {{index===currentIndex ? 'active' : ''}}">{{ item.name }}</text>
           <div if="index===currentIndex" class="line"></div>
         </stack>
       </tab-bar>
       <tab-content if="isShowTabContent">
         <div for="(index, $item) in tabBarList">
-          <TabItem pdata="{{$item}}"
-            @update-callback="onUpdateCallback"
-            if="index===currentIndex" />
+          <TabItem pdata="{{$item}}" @update-callback="onUpdateCallback" if="index===currentIndex" />
         </div>
       </tab-content>
     </tabs>
@@ -41,32 +39,41 @@ export default {
       {
         name: '热门',
         sortTarget: 'likes',
-        sortType: -1
+        sortType: -1,
       },
       {
         name: '最新',
         sortTarget: 'created',
-        sortType: -1
+        sortType: -1,
       },
       {
         name: '最早',
         sortTarget: 'created',
-        sortType: 1
+        sortType: 1,
       },
       {
         name: '冷门',
         sortTarget: 'likes',
-        sortType: 1
-      }
+        sortType: 1,
+      },
     ],
     isShowTabs: true,
     isShowSidebar: false,
-    isShowTabContent: true
+    isShowTabContent: true,
   },
 
   onInit() {},
 
-  onShow() {},
+  onShow() {
+    this.$page.setMeta({
+      title: '倾城之链 - 主页',
+      pic: 'https://oss.nicelinks.site/nicelinks.site.png?x-oss-process=style/png2jpg',
+      description:
+        '倾城之链，作为一个开放平台，旨在云集全球优秀网站，探索互联网中更广阔的世界；在这里，你可以轻松发现、学习、分享更多有用或有趣的事物。',
+      keywords:
+        '倾城之链, nice links, 资源之家, 新媒体导航, 网站, 利器, 新世界, 技术, 产品, 有趣, 人文, 历史, 工具, 社区, 旅行, 美图, 历史, 人文, 娱乐, 抠图, 高效, 搜商, 搜索, 引擎, 思谷搜, 快应用, 翁天信, 天空之城',
+    })
+  },
 
   onBackPress() {},
 
@@ -83,10 +90,10 @@ export default {
       skill: '0',
       resource: '1',
       life: '2',
-      info: '3'
+      info: '3',
     }
     const tempArray = JSON.parse(JSON.stringify(this.tabBarList))
-    tempArray.forEach(item => {
+    tempArray.forEach((item) => {
       item.classify = classifyMapping[response.detail.classify] || ''
     })
     this.tabBarList = tempArray
@@ -111,7 +118,7 @@ export default {
   onChangeTabIndex(evt) {
     this.$broadcast('changeTab')
     this.currentIndex = evt.index
-  }
+  },
 }
 </script>
 
